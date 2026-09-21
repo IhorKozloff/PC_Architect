@@ -30,9 +30,9 @@ model Component {
   name String
   price Int
 
-  socket String
+  socket String? 
 
-  buildComponents BuildComponents[] 
+  buildComponents BuildComponent[] 
 }
 
 model Build {
@@ -43,7 +43,7 @@ model Build {
   userId String
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  components BuildComponents[]
+  components BuildComponent[]
 
   isPublic Boolean @default(false)
 
@@ -82,4 +82,5 @@ enum ComponentType {
   motherboard
   psu
   case
+  cooler
 }

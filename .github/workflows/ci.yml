@@ -1,7 +1,11 @@
-name: CI(first steps)
+name: CI
 
 on:
   push:
+    branches:
+      - main
+
+  pull_request:
     branches:
       - main
 
@@ -10,15 +14,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
 
-      - run: npm ci
-      - run: npm run generate
+      - name: Install dependencies
+        run: npm ci
 
-      - run: npm run lint
+      - name: Generate Prisma Client
+        run: npm run generate
 
-      - run: npm run typecheck
+      - name: Lint
+        run: npm run lint
 
-      # - run: npm run build
+      - name: TypeScript check
+        run: npm run typecheck
+
+      - name: Build
+        run: npm run build

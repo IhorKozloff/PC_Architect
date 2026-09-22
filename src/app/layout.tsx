@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono, Inter } from 'next/font/google';
 import './globals.css';
 import { cn } from '@/lib/utils';
+import { ReactNode } from 'react';
 
 const inter = Inter({subsets: ['latin'],variable: '--font-sans'});
 
@@ -20,7 +21,7 @@ export const metadata: Metadata = {
   description: 'Get the computer of your dream.',
 };
 
-export default function RootLayout({ children }: LayoutProps<'/'>) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
       lang="en"

@@ -1,3 +1,7 @@
+'use client';
+
+import { signupAction } from '@/app/signup/actions/signupAction';
+import { SignupState } from '@/app/signup/types/signupTypes';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -13,26 +17,30 @@ import {
   FieldLabel,
 } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
+import { useActionState } from 'react';
 
 export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
+  const [state, formAction] = useActionState<SignupState | null, FormData>(signupAction, null);
   return (
     <Card {...props}>
       <CardHeader>
+        {state?.error && <p>{state.error}</p>}
         <CardTitle>Create an account</CardTitle>
         <CardDescription>
           Enter your information below to create your account
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <form>
+        <form action={formAction}>
           <FieldGroup>
             <Field>
               <FieldLabel htmlFor="name">Full Name</FieldLabel>
-              <Input id="name" type="text" placeholder="John Doe" required />
+              <Input name="name" id="name" type="text" placeholder="John Doe" required />
             </Field>
             <Field>
               <FieldLabel htmlFor="email">Email</FieldLabel>
               <Input
+                name="email"
                 id="email"
                 type="email"
                 placeholder="m@example.com"
@@ -45,26 +53,17 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
             </Field>
             <Field>
               <FieldLabel htmlFor="password">Password</FieldLabel>
-              <Input id="password" type="password" required />
+              <Input name="password" id="password" type="password" required />
               <FieldDescription>
                 Must be at least 8 characters long.
               </FieldDescription>
             </Field>
-            <Field>
-              <FieldLabel htmlFor="confirm-password">
-                Confirm Password
-              </FieldLabel>
-              <Input id="confirm-password" type="password" required />
-              <FieldDescription>Please confirm your password.</FieldDescription>
-            </Field>
+
             <FieldGroup>
               <Field>
                 <Button type="submit">Create Account</Button>
-                <Button variant="outline" type="button">
-                  Sign up with Google
-                </Button>
                 <FieldDescription className="px-6 text-center">
-                  Already have an account? <a href="#">Sign in</a>
+                  Already have an account? <a href="login">Sign in</a>
                 </FieldDescription>
               </Field>
             </FieldGroup>

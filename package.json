@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
-    "generate": "npx prisma generate"
+    "generate": "npx prisma generate",
+    "test": "jest"
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",
@@ -33,6 +34,7 @@
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "@types/bcrypt": "^6.0.0",
+    "@types/jest": "^30.0.0",
     "@types/node": "^20",
     "@types/pg": "^8.23.1",
     "@types/react": "^19",
@@ -40,6 +42,7 @@
     "babel-plugin-react-compiler": "1.0.0",
     "eslint": "^9",
     "eslint-config-next": "16.3.3",
+    "jest": "^30.5.2",
     "prisma": "^7.10.0",
     "tailwindcss": "^4",
     "tsx": "^4.23.13",

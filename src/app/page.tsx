@@ -7,7 +7,7 @@ export default function Home() {
   const x = 5;
 
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
+    <div className="flex flex-col flex-1 items-center justify-center font-sans">
       <main>
         <TypographyH1>Hello World!</TypographyH1>
         <TypographyH3>Hello World!</TypographyH3>

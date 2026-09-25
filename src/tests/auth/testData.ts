@@ -1,4 +1,4 @@
-export const signupTestData = {
+export const authTestData = {
   valid: {
     name: 'Ihor',
     email: 'ihor@example.com',

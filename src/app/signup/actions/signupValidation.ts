@@ -1,7 +1,7 @@
 import { appConfig, MIN_PASSWORD_LENGTH } from '@/config/app.config';
 import { SignupData, ValidationResult } from '../types/signupTypes';
 
-export function parseSignupFormData(formData: FormData): SignupData {
+export function parseAuthFormData(formData: FormData): SignupData {
   return {
     name: formData.get('name')?.toString(),
     email: formData.get('email')?.toString(),
@@ -9,7 +9,7 @@ export function parseSignupFormData(formData: FormData): SignupData {
   };
 };
 
-export function validateSignupData(
+export function validateAuthData(
   data: SignupData
 ): ValidationResult {
   const { email, password } = data;

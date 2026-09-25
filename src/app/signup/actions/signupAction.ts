@@ -2,16 +2,16 @@
 
 import { redirect } from 'next/navigation';
 import { SignupState } from '../types/signupTypes';
-import { parseSignupFormData, validateSignupData } from './signupValidation';
+import { parseAuthFormData, validateAuthData } from './signupValidation';
 import { createUser } from './signupUser';
 
 export async function signupAction(
   _prevState: SignupState | null,
   formData: FormData
 ): Promise<SignupState> {
-  const signupData = parseSignupFormData(formData);
+  const signupData = parseAuthFormData(formData);
 
-  const validationResult = validateSignupData(signupData);
+  const validationResult = validateAuthData(signupData);
 
   if (!validationResult.success) {
     return {

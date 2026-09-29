@@ -7,7 +7,7 @@ interface IProps {
 export const TypographyH1 = ({ children }: IProps) => {
   return (
     <h1
-      className="scroll-m-20 text-center text-4xl font-extrabold tracking-tight text-balance"
+      className="scroll-m-20 text-center text-4xl font-extrabold tracking-tight text-balance text-white"
     >
       {children}
     </h1>

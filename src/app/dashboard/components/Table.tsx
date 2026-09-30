@@ -1,11 +1,11 @@
-'use client'
+'use client';
 
-import { Button } from "@/components/ui/button";
-import { Dialog, DialogTrigger } from "@/components/ui/dialog";
-import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Component, ComponentCategory } from "@/lib/types";
-import { Box, Cpu, Fan, HardDrive, MemoryStick, Monitor, Plus, Server, Zap } from "lucide-react";
-import { useState } from "react";
+import { Button } from '@/components/ui/button';
+import { Dialog, DialogTrigger } from '@/components/ui/dialog';
+import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Component, ComponentCategory } from '@/lib/types';
+import { Box, Cpu, Fan, HardDrive, MemoryStick, Monitor, Plus, Server, Zap } from 'lucide-react';
+import { useState } from 'react';
 
 const iconMap: Record<ComponentCategory['icon'], React.ElementType> = {
   Cpu,
@@ -16,7 +16,7 @@ const iconMap: Record<ComponentCategory['icon'], React.ElementType> = {
   Zap,
   Box,
   Fan
-}
+};
 interface IProps {
   components: CategoryRow[];
   selectedByCategory: Record<string, Component | null>;
@@ -54,27 +54,27 @@ export function TableParts({
             const selected = selectedByCategory[category.id];
 
             return (
-              <TableRow key={category.id} className='my-2'>
+              <TableRow key={category.id} className="my-2">
                 <TableCell>
                   <div className="flex tems-center">
                     <Icon className="h-5 w-5 mr-1" />
                   </div>
                 </TableCell>
-                <TableCell className='font-bold'>{category.name}</TableCell>
+                <TableCell className="font-bold">{category.name}</TableCell>
                 <TableCell>{selected?.name ?? '-'}</TableCell>
                 <TableCell>{selected?.price ?? '-'}</TableCell>
-                <TableCell className='text-right'>
+                <TableCell className="text-right">
                   <Dialog
                     open={openCategoryId === category.id}
                     onOpenChange={(open) => setOpenCategoryId(open ? category.id : null)}
                   >
-                    <DialogTrigger asChild>
+                    <DialogTrigger >
                       <Button variant="outline" size="sm">
-                        <Plus className='h-4 w-4 mr-1' />
+                        <Plus className="h-4 w-4 mr-1" />
                         {selected ? 'Изменить' : 'Добавить'}
                       </Button>
                     </DialogTrigger>
-                    <AddComponentDialogContent
+                    {/* <AddComponentDialogContent
                       categoryId={category.id}
                       categoryName={category.name}
                       onSelect={
@@ -83,11 +83,11 @@ export function TableParts({
                           setOpenCategoryId(null)
                         }
                       }
-                    />
+                    /> */}
                   </Dialog>
                 </TableCell>
               </TableRow>
-            )
+            );
           })
         }
       </TableBody>
@@ -102,5 +102,5 @@ export function TableParts({
         </TableRow>
       </TableFooter>
     </Table>
-  )
+  );
 }

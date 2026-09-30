@@ -39,3 +39,9 @@ export async function loginAction(
   }
   return {};
 }
+
+import { signOut } from '@/auth';
+
+export async function logoutAction() {
+  await signOut({ redirectTo: '/login' });
+}

@@ -1,11 +1,15 @@
-import { LoginForm } from "@/components/login-form"
+import { CurrentBuild } from './components/CurrentBuild';
+import { PopularBuildCard } from './components/PopularBuildCard';
 
-export default function Page() {
+export default function Dashboard() {
   return (
-    <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
-      <div className="w-full max-w-sm">
-        Dashboard
+    <div className="flex flex-col max-w-9xl gap-6 lg:flex-row lg:items-start">
+      <div className="min-w-0 flex-1">
+        <CurrentBuild />
       </div>
+      <aside className="shrink-0 lg:sticky lg:top-6 lg:w-80">
+        <PopularBuildCard />
+      </aside>
     </div>
-  )
+  );
 }

@@ -7,7 +7,7 @@ export type ComponentCategory = {
 export type Component = {
   id: string;
   name: string;
-  price: string;
+  price: number;
   type: ComponentType;
   socket: string | null;
 };

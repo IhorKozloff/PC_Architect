@@ -6,6 +6,7 @@ import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, Table
 import { Component, ComponentCategory } from '@/lib/types';
 import { Box, Cpu, Fan, HardDrive, MemoryStick, Monitor, Plus, Server, Zap } from 'lucide-react';
 import { useState } from 'react';
+import { AddComponentDialogContent } from './AddComponentDialogContent';
 
 const iconMap: Record<ComponentCategory['icon'], React.ElementType> = {
   Cpu,
@@ -37,14 +38,14 @@ export function TableParts({
   const totalPrice = Object.values(selectedByCategory).reduce((sum, c) => sum + (c?.price ?? 0), 0);
 
   return (
-    <Table>
+    <Table className='text-white'>
       <TableHeader>
         <TableRow>
-          <TableHead className="w-[100px]">Component</TableHead>
-          <TableHead>Type</TableHead>
-          <TableHead>Model</TableHead>
-          <TableHead>Price</TableHead>
-          <TableHead className="text-right">Actions</TableHead>
+          <TableHead className="w-[100px] text-white">Component</TableHead>
+          <TableHead className="text-white">Type</TableHead>
+          <TableHead className="text-white">Model</TableHead>
+          <TableHead className="text-white">Price</TableHead>
+          <TableHead className="text-right text-white">Actions</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -68,22 +69,24 @@ export function TableParts({
                     open={openCategoryId === category.id}
                     onOpenChange={(open) => setOpenCategoryId(open ? category.id : null)}
                   >
-                    <DialogTrigger >
-                      <Button variant="outline" size="sm">
-                        <Plus className="h-4 w-4 mr-1" />
-                        {selected ? 'Изменить' : 'Добавить'}
-                      </Button>
-                    </DialogTrigger>
-                    {/* <AddComponentDialogContent
+                    <DialogTrigger
+                      render={
+                        <Button variant="outline" size="sm" className="text-black">
+                          <Plus className="h-4 w-4 mr-1" />
+                          {selected ? 'Change' : 'Add'}
+                        </Button>
+                      }
+                    />
+                    <AddComponentDialogContent
                       categoryId={category.id}
                       categoryName={category.name}
                       onSelect={
                         (c) => {
-                          onSelectedComponent(category.id, c);
+                          //onSelectedComponent(category.id, c);
                           setOpenCategoryId(null)
                         }
                       }
-                    /> */}
+                    />
                   </Dialog>
                 </TableCell>
               </TableRow>
@@ -94,7 +97,7 @@ export function TableParts({
       <TableFooter>
         <TableRow>
           <TableCell colSpan={5}>
-            <p className="font-medium">Цена сборки:</p>
+            <p className="font-medium">Build price:</p>
             <p className="font-large text-gray500">
               {new Intl.NumberFormat('ru-Ru').format(totalPrice)}
             </p>

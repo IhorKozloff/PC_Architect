@@ -27,7 +27,7 @@ export function ComponentCard({
           className="w-full gap-1.5"
           onClick={onClick}
         >
-          Добавить
+          Add
         </Button>
       </CardFooter>
     </Card>

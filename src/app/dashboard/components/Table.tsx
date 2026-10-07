@@ -82,8 +82,8 @@ export function TableParts({
                       categoryName={category.name}
                       onSelect={
                         (c) => {
-                          //onSelectedComponent(category.id, c);
-                          setOpenCategoryId(null)
+                          onSelectedComponent(category.id, c);
+                          setOpenCategoryId(null);
                         }
                       }
                     />

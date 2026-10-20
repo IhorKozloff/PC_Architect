@@ -5,69 +5,197 @@ import { prisma } from '../../../prisma/prisma';
 import { auth } from '@/auth';
 import { revalidatePath } from 'next/cache';
 
+// export type SaveBuildFromState = {
+//   status: 'idle' | 'success' | 'error',
+//   message?: string,
+// };
+
+// export async function saveBuildAction(
+//   prevState: SaveBuildFromState,
+//   formData: FormData
+// ): Promise<SaveBuildFromState> {
+//   const name = String(formData.get('name') ?? '').trim();
+//   const componentsIds = String(formData.get('componentsIds') ?? '')
+//     .split('.')
+//     .map((id) => id.trim())
+//     .filter(Boolean);
+
+//   const result = await saveBuild(name, componentsIds);
+
+//   if (!result.success) {
+//     return {
+//       status: 'error',
+//       message: result.error
+//     };
+//   }
+
+//   return {
+//     status: 'success',
+//     message: 'Build saved successfully!'
+//   };
+// }
+
+// type SaveBuildResult = | { success: true; buildId: string }  | { success: false; error: string };
+
+// export async function saveBuild(
+//   name: string,
+//   componentsIds: string[]
+// ): Promise<SaveBuildResult> {
+//   const session = await auth();
+
+//   if (!session?.user.id) {
+//     return { success: false, error: 'Please log in!' };
+//   };
+
+//   const trimedName = name.trim();
+
+//   if (!trimedName) {
+//     return { success: false, error: 'Please input a build name!' };
+//   };
+
+//   if (componentsIds.length === 0) {
+//     return { success: false, error: 'Add minimum ine component!' };
+//   };
+//   const components = await prisma.component.findMany({
+//     where: {
+//       id: { in: componentsIds }
+//     }
+//   });
+//   if (components.length !== componentsIds.length) {
+//     return { success: false, error: 'Some components not found!' };
+//   };
+
+//   const totalPrice = components.reduce((s, c) => {
+//     return s + c.price;
+//   }, 0);
+
+//   try {
+//     const build = await prisma.$transaction(
+//       async (tx) => {
+//         const newBuild = await tx.build.create({
+//           data: {
+//             name: trimedName,
+//             totalPrice,
+//             userId: session.user.id
+//           }
+//         });
+
+//         await tx.buildComponent.createMany({
+//           data: componentsIds.map(componentId => ({
+//             buildId: newBuild.id,
+//             componentId
+//           }))
+//         });
+
+//         return newBuild;
+//       }
+//     );
+//     revalidatePath('/dashboard')
+//     revalidatePath('/builds')
+
+//     return { success: true, buildId: build.id };
+//   } catch (error) {
+//     return { success: false, error: 'Failed to save the build!' };
+//   }
+// }
+
+// export async function getComponentsByCategory(categoryId: string): Promise<Component[]> {
+//   const dbType = categoryIdToDbType[categoryId];
+
+//   if (!dbType) {
+//     return [];
+//   };
+
+//   const components = await prisma.component.findMany({
+//     where: {
+//       type: dbType
+//     },
+//     orderBy: {
+//       price: 'asc'
+//     },
+//   });
+
+//   return components.map(i => ({
+//     id: i.id,
+//     name: i.name,
+//     type: i.type,
+//     price: i.price,
+//     socket: i.socket
+//   }));
+// };
 export type SaveBuildFromState = {
   status: 'idle' | 'success' | 'error',
-  message?: string,
-};
+  message?: string
+}
 
 export async function saveBuildAction(
-  prevState: SaveBuildFromState,
+  _prevState: SaveBuildFromState,
   formData: FormData
-) {
+): Promise<SaveBuildFromState> {
   const name = String(formData.get('name') ?? '').trim();
-  const componentsIds = String(formData.get('componentsIds') ?? '')
-    .split('.')
+  const componentIds = String(formData.get('componentIds'))
+    .split(',')
     .map((id) => id.trim())
     .filter(Boolean);
 
-  const result = await saveBuild(name, componentsIds);
+  const result = await saveBuild(name, componentIds);
+
+  if (!result.success) {
+    return {
+      status: 'error',
+      message: result.error
+    };
+  }
+
+  return {
+    status: 'success',
+    message: 'Сборка успешно сохранена'
+  };
 }
 
 export async function saveBuild(
   name: string,
-  componentsIds: string[]
-): Promise<{ success: boolean, buildId: string } | { success: boolean, error: string }> {
+  componentIds: string[]
+): Promise<{ success: true; buildId: string } | { success: false; error: string }> {
   const session = await auth();
 
   if (!session?.user.id) {
-    return { success: false, error: 'Please log in!' };
-  };
+    return { success: false, error: 'Необходимо войти' };
+  }
 
-  const trimedName = name.trim();
+  const trimmedName = name.trim();
 
-  if (!trimedName) {
-    return { success: false, error: 'Please input a build name!' };
-  };
+  if (!trimmedName) {
+    return { success: false, error: 'Введите название сборки' };
+  }
 
-  if (componentsIds.length === 0) {
-    return { success: false, error: 'Add minimum ine component!' };
-  };
+  if (componentIds.length === 0) {
+    return { success: false, error: 'Добавьте хотябы один компонент' };
+  }
+
   const components = await prisma.component.findMany({
-    where: {
-      id: { in: componentsIds }
-    }
+    where: { id: { in: componentIds } }
   });
-  if (components.length !== componentsIds.length) {
-    return { success: false, error: 'Some components not found!' };
-  };
 
-  const totalPrice = components.reduce((s, c) => {
-    return s + c.price;
-  }, 0);
+  if (components.length !== componentIds.length) {
+    return { success: false, error: 'Некоторые компоненты не найдены' };
+  }
+
+  const totalPrice = components.reduce((s, c) => s + c.price, 0);
 
   try {
     const build = await prisma.$transaction(
       async (tx) => {
         const newBuild = await tx.build.create({
           data: {
-            name: trimedName,
+            name: trimmedName,
             totalPrice,
             userId: session.user.id
           }
         });
 
         await tx.buildComponent.createMany({
-          data: componentsIds.map(componentId => ({
+          data: componentIds.map(componentId => ({
             buildId: newBuild.id,
             componentId
           }))
@@ -76,12 +204,13 @@ export async function saveBuild(
         return newBuild;
       }
     );
-    revalidatePath('/dashboard')
-    revalidatePath('/builds')
+
+    revalidatePath('/dashboard');
+    revalidatePath('/builds');
 
     return { success: true, buildId: build.id };
   } catch (error) {
-    return { success: false, error: 'Failed to save the build!' };
+    return { success: false, error: 'Не удалось сохранить сборки' };
   }
 }
 
@@ -90,22 +219,18 @@ export async function getComponentsByCategory(categoryId: string): Promise<Compo
 
   if (!dbType) {
     return [];
-  };
+  }
 
   const components = await prisma.component.findMany({
-    where: {
-      type: dbType
-    },
-    orderBy: {
-      price: 'asc'
-    },
+    where: { type: dbType },
+    orderBy: { price: 'asc' }
   });
 
-  return components.map(i => ({
-    id: i.id,
-    name: i.name,
-    type: i.type,
-    price: i.price,
-    socket: i.socket
+  return components.map(c => ({
+    id: c.id,
+    type: c.type,
+    name: c.name,
+    price: c.price,
+    socket: c.socket
   }));
-};
+}

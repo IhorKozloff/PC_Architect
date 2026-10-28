@@ -52,7 +52,7 @@ export function HeaderNav({ session }: IProps) {
 
             <TabsTrigger value="builds" className="px-2">
               <LayoutList className="h-4 w-4" />
-              <Link href="/builds">My builds</Link>
+              <Link href="/build">My builds</Link>
             </TabsTrigger>
 
             <TabsTrigger value="explore" className="px-2">

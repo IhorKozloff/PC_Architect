@@ -2,6 +2,8 @@ import { Button } from '@/components/ui/button';
 import { ArrowUpRight, Calculator, Cpu, Save } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { HowItWorks } from '@/components/landing/how-it-works';
+import { Features } from '@/components/landing/features';
 
 function CalloutLine({ position }: { position: 'below-right' | 'below-left' | 'above-right' }) {
   const above = position === 'above-right';
@@ -66,7 +68,7 @@ function PcPreview() {
 }
 export default function Home() {
   return (
-    <main className="relative isolate flex flex-1 overflow-hidden bg-[#0c0f16] text-slate-100">
+    <main className="relative isolate flex flex-1 flex-col overflow-hidden bg-[#0c0f16] text-slate-100">
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top_right,rgba(139,92,246,0.12),transparent_60%)]" />
       <section aria-labelledby="hero-title" className="mx-auto grid w-full max-w-[1440px] min-w-0 items-start gap-10 px-5 py-8 sm:px-8 sm:py-10 lg:min-h-[calc(100svh-80px)] lg:grid-cols-[1.2fr_1fr] lg:gap-12 lg:px-8">
         <div className="min-w-0 lg:pt-4">
@@ -101,6 +103,8 @@ export default function Home() {
         </div>
         <PcPreview />
       </section>
+      <HowItWorks />
+      <Features />
     </main>
   );
 }

@@ -3,14 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "docker compose -f compose.dev.yaml up -d && next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
     "generate": "npx prisma generate",
-    "test": "jest",
-    "docker:start": "start \"\" \"C:\\Program Files\\Docker\\Docker\\Docker Desktop.exe\""
+    "test": "jest"
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",

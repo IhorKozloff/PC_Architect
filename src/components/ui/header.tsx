@@ -1,16 +1,13 @@
-import { auth } from "@/auth";
-import Link from "next/link";
-import { TypographyH3 } from "./typography-h3";
-import { HeaderNav } from "./header-nav";
+import { auth } from '@/auth';
+import { HeaderNav } from './header-nav';
 
 export async function Header() {
   const session = await auth();
   return (
-    <header className="container mx-auto flex items-center p-4"> 
-      
-      <nav className="min-w-0 flex-1">
+    <header className="border-b border-white/10 bg-[#0c0f16] text-slate-100">
+      <nav aria-label="Main navigation" className="mx-auto w-full max-w-[1440px] min-w-0 px-5 py-4 sm:px-8">
         <HeaderNav session={session} />
       </nav>
-     </header>
+    </header>
   );
 };

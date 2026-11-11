@@ -13,18 +13,18 @@ export function ComponentCard({
   onClick
 }: Props) {
   return (
-    <Card>
+    <Card className="min-w-0 border border-white/10 bg-[#0c0f16] text-slate-100 ring-0">
       <CardHeader className="min-h-0 flex-1 pb-2">
-        <CardTitle className="text-base font-medium leading-tight">{name}</CardTitle>
-        <CardDescription className="text-sm font-medium tabular-nums">
+        <CardTitle className="break-words text-base font-medium leading-relaxed">{name}</CardTitle>
+        <CardDescription className="font-mono text-sm font-medium text-cyan-300 tabular-nums">
           {new Intl.NumberFormat('ru-RU').format(price)}
         </CardDescription>
       </CardHeader>
-      <CardFooter className="pt-0">
+      <CardFooter className="border-white/10 bg-transparent">
         <Button
           variant="secondary"
           size="sm"
-          className="w-full gap-1.5"
+          className="h-10 w-full gap-1.5 border border-violet-400/30 bg-violet-400/10 text-violet-200 hover:bg-violet-400/20 focus-visible:border-cyan-300 focus-visible:ring-cyan-300/60 motion-reduce:transition-none"
           onClick={onClick}
         >
           Add

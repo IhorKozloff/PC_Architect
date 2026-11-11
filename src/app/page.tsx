@@ -4,6 +4,9 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { HowItWorks } from '@/components/landing/how-it-works';
 import { Features } from '@/components/landing/features';
+import { Components } from '@/components/landing/components';
+import { FinalCta } from '@/components/landing/final-cta';
+import { Footer } from '@/components/landing/footer';
 
 function CalloutLine({ position }: { position: 'below-right' | 'below-left' | 'above-right' }) {
   const above = position === 'above-right';
@@ -68,43 +71,48 @@ function PcPreview() {
 }
 export default function Home() {
   return (
-    <main className="relative isolate flex flex-1 flex-col overflow-hidden bg-[#0c0f16] text-slate-100">
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top_right,rgba(139,92,246,0.12),transparent_60%)]" />
-      <section aria-labelledby="hero-title" className="mx-auto grid w-full max-w-[1440px] min-w-0 items-start gap-10 px-5 py-8 sm:px-8 sm:py-10 lg:min-h-[calc(100svh-80px)] lg:grid-cols-[1.2fr_1fr] lg:gap-12 lg:px-8">
-        <div className="min-w-0 lg:pt-4">
-          <p className="mb-4 flex items-center gap-2 font-mono text-[10px] tracking-[0.16em] text-cyan-300 sm:text-xs">
-            <span aria-hidden="true" className="h-px w-5 shrink-0 bg-[#22D3EE]" /> YOUR NEXT BUILD STARTS HERE
-          </p>
-          <h1 id="hero-title" className="text-[clamp(2.75rem,7vw,5.5rem)] leading-[1.05] font-semibold tracking-[-0.05em]">
+    <>
+      <main className="relative isolate flex flex-1 flex-col overflow-hidden bg-[#0c0f16] text-slate-100">
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top_right,rgba(139,92,246,0.12),transparent_60%)]" />
+        <section aria-labelledby="hero-title" className="mx-auto grid w-full max-w-[1440px] min-w-0 items-start gap-10 px-5 py-8 sm:px-8 sm:py-10 lg:min-h-[calc(100svh-80px)] lg:grid-cols-[1.2fr_1fr] lg:gap-12 lg:px-8">
+          <div className="min-w-0 lg:pt-4">
+            <p className="mb-4 flex items-center gap-2 font-mono text-[10px] tracking-[0.16em] text-cyan-300 sm:text-xs">
+              <span aria-hidden="true" className="h-px w-5 shrink-0 bg-[#22D3EE]" /> YOUR NEXT BUILD STARTS HERE
+            </p>
+            <h1 id="hero-title" className="text-[clamp(2.75rem,7vw,5.5rem)] leading-[1.05] font-semibold tracking-[-0.05em]">
             Build Beyond <span className="text-violet-400">Limits.</span>
-          </h1>
-          <p className="mt-5 max-w-md text-base leading-relaxed text-slate-400 sm:text-lg lg:max-w-lg">
+            </h1>
+            <p className="mt-5 max-w-md text-base leading-relaxed text-slate-400 sm:text-lg lg:max-w-lg">
             Your vision. Your components. Your PC. Choose your parts, see the total, and save a build that&apos;s entirely yours.
-          </p>
-          <Button render={<Link href="/dashboard" />} className="mt-6 h-12 gap-3 rounded-lg bg-[#8B5CF6] px-6 text-base text-white shadow-lg shadow-violet-500/20 hover:bg-[#7C3AED] focus-visible:border-cyan-300 focus-visible:ring-cyan-300/60">
+            </p>
+            <Button nativeButton={false} render={<Link href="/dashboard" />} className="mt-6 h-12 gap-3 rounded-lg bg-[#8B5CF6] px-6 text-base text-white shadow-lg shadow-violet-500/20 hover:bg-[#7C3AED] focus-visible:border-cyan-300 focus-visible:ring-cyan-300/60">
             Start Building <ArrowUpRight aria-hidden="true" className="size-5" />
-          </Button>
-          <p className="mt-4 text-xs text-slate-400">Sign in to create and save your build.</p>
-          <ul className="mt-8 grid grid-cols-1 gap-4 border-t border-white/10 pt-5 sm:grid-cols-3 sm:gap-3">
-            {[
-              { icon: Cpu, title: 'Choose your parts', detail: '8 component categories' },
-              { icon: Calculator, title: 'See the total', detail: 'Price updates as you build' },
-              { icon: Save, title: 'Make it yours', detail: 'Name and save your build' },
-            ].map(({ icon: Icon, title, detail }) => (
-              <li key={title} className="flex items-start gap-3 sm:flex-col">
-                <Icon aria-hidden="true" className="size-5 shrink-0 text-cyan-300" strokeWidth={1.5} />
-                <div>
-                  <p className="text-sm font-medium text-slate-200">{title}</p>
-                  <p className="mt-1 text-xs leading-relaxed text-slate-400">{detail}</p>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <PcPreview />
-      </section>
-      <HowItWorks />
-      <Features />
-    </main>
+            </Button>
+            <p className="mt-4 text-xs text-slate-400">Sign in to create and save your build.</p>
+            <ul className="mt-8 grid grid-cols-1 gap-4 border-t border-white/10 pt-5 sm:grid-cols-3 sm:gap-3">
+              {[
+                { icon: Cpu, title: 'Choose your parts', detail: '8 component categories' },
+                { icon: Calculator, title: 'See the total', detail: 'Price updates as you build' },
+                { icon: Save, title: 'Make it yours', detail: 'Name and save your build' },
+              ].map(({ icon: Icon, title, detail }) => (
+                <li key={title} className="flex items-start gap-3 sm:flex-col">
+                  <Icon aria-hidden="true" className="size-5 shrink-0 text-cyan-300" strokeWidth={1.5} />
+                  <div>
+                    <p className="text-sm font-medium text-slate-200">{title}</p>
+                    <p className="mt-1 text-xs leading-relaxed text-slate-400">{detail}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <PcPreview />
+        </section>
+        <HowItWorks />
+        <Features />
+        <Components />
+        <FinalCta />
+      </main>
+      <Footer />
+    </>
   );
 }

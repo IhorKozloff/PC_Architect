@@ -85,7 +85,7 @@ export default function Home() {
             <p className="mt-5 max-w-md text-base leading-relaxed text-slate-400 sm:text-lg lg:max-w-lg">
             Your vision. Your components. Your PC. Choose your parts, see the total, and save a build that&apos;s entirely yours.
             </p>
-            <Button nativeButton={false} render={<Link href="/dashboard" />} className="mt-6 h-12 gap-3 rounded-lg bg-[#8B5CF6] px-6 text-base text-white shadow-lg shadow-violet-500/20 hover:bg-[#7C3AED] focus-visible:border-cyan-300 focus-visible:ring-cyan-300/60">
+            <Button nativeButton={false} render={<Link href="/dashboard" />} className="mt-6 h-12 gap-3 rounded-lg bg-[#7C3AED] px-6 text-base text-white shadow-lg shadow-violet-500/20 hover:bg-[#6D28D9] focus-visible:border-cyan-300 focus-visible:ring-cyan-300/60 motion-reduce:transition-none motion-reduce:active:translate-y-0">
             Start Building <ArrowUpRight aria-hidden="true" className="size-5" />
             </Button>
             <p className="mt-4 text-xs text-slate-400">Sign in to create and save your build.</p>

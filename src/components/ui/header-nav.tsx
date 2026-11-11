@@ -1,11 +1,9 @@
 'use client';
 
-import { getTabValue } from '@/lib/utils';
 import { Session } from 'next-auth';
 import { usePathname } from 'next/navigation';
 import { Button } from './button';
 import Link from 'next/link';
-import { Tabs, TabsList, TabsTrigger } from './tabs';
 import { LayoutList, Plus, Users } from 'lucide-react';
 import { logoutAction } from '@/app/login/actions';
 
@@ -14,7 +12,6 @@ interface IProps {
 }
 export function HeaderNav({ session }: IProps) {
   const pathname = usePathname();
-  const tabValue = getTabValue(pathname);
 
   if (!session || !session.user) {
     return (
@@ -37,24 +34,20 @@ export function HeaderNav({ session }: IProps) {
         <Link href={session?.user ? '/dashboard' : '/'} className="rounded-sm text-lg font-semibold tracking-tight text-slate-100 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan-300 sm:text-xl">PC <span className="text-violet-400">Architect</span></Link>
       </div>
       <div className="order-last col-span-2 min-w-0 lg:order-none lg:col-span-1">
-        <Tabs value={tabValue} className="w-full min-w-0 lg:w-fit">
-          <TabsList aria-label="Build navigation" className="grid h-auto! w-full grid-cols-1 gap-1 rounded-xl border border-white/10 bg-[#111621] p-1 sm:grid-cols-3 [&_[data-slot=tabs-trigger]]:h-auto [&_[data-slot=tabs-trigger]]:min-h-10 [&_[data-slot=tabs-trigger]]:text-slate-400 [&_[data-slot=tabs-trigger]]:hover:text-cyan-300 [&_[data-slot=tabs-trigger]]:data-active:border-violet-400/30 [&_[data-slot=tabs-trigger]]:data-active:bg-[#8B5CF6]/15 [&_[data-slot=tabs-trigger]]:data-active:text-violet-200 [&_[data-slot=tabs-trigger]]:focus-visible:ring-cyan-300/60 [&_[data-slot=tabs-trigger]]:motion-reduce:transition-none [&_a]:rounded-sm [&_a]:focus-visible:outline-2 [&_a]:focus-visible:outline-offset-2 [&_a]:focus-visible:outline-cyan-300">
-            <TabsTrigger value="dashboard" className="px-3 py-2">
-              <Plus aria-hidden="true" className="h-4 w-4" />
-              <Link href="/dashboard" className="py-1">Create new build</Link>
-            </TabsTrigger>
-
-            <TabsTrigger value="builds" className="px-3 py-2">
-              <LayoutList aria-hidden="true" className="h-4 w-4" />
-              <Link href="/builds" className="py-1">My builds</Link>
-            </TabsTrigger>
-
-            <TabsTrigger value="explore" className="px-3 py-2">
-              <Users aria-hidden="true" className="h-4 w-4" />
-              <Link href="/builds/explore" className="py-1">Public builds</Link>
-            </TabsTrigger>
-          </TabsList>
-        </Tabs>
+        <ul className="grid w-full grid-cols-1 gap-1 rounded-xl border border-white/10 bg-[#111621] p-1 sm:grid-cols-3">
+          {[
+            { href: '/dashboard', label: 'Create new build', icon: Plus },
+            { href: '/builds', label: 'My builds', icon: LayoutList },
+            { href: '/builds/explore', label: 'Public builds', icon: Users },
+          ].map(({ href, label, icon: Icon }) => (
+            <li key={href} className="min-w-0">
+              <Link href={href} aria-current={pathname === href ? 'page' : undefined} className="flex min-h-10 items-center justify-center gap-2 rounded-lg border border-transparent px-3 py-2 text-sm font-medium text-slate-300 hover:text-cyan-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300 aria-[current=page]:border-violet-400/30 aria-[current=page]:bg-[#8B5CF6]/15 aria-[current=page]:text-violet-200">
+                <Icon aria-hidden="true" className="size-4 shrink-0" />
+                {label}
+              </Link>
+            </li>
+          ))}
+        </ul>
       </div>
 
       <div className="flex justify-end">

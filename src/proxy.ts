@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-const PUBLIC_PATH = new Set(['/', '/login', '/register']);
+const PUBLIC_PATH = new Set(['/', '/login', '/signup']);
 
 // This function can be marked `async` if using `await` inside
 export function isPublicPath(pathname: string) {

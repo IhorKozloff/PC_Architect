@@ -15,5 +15,38 @@ export const appConfig = {
       INVALID_EMAIL_OR_PASSWORD: 'Invalid email or password',
       AUTHORIZATION_ERROR: 'Authorization error'
     }
+  },
+  TEXT: {
+    LANDING:{ 
+      HERO: {
+        NEXT_BUILD_TEXT: 'YOUR NEXT BUILD STARTS HERE', 
+        MAIN_HEADING_TEXT: {
+          main: 'Build Beyond',
+          hightLighted: 'Limits.'
+        },
+        CTA_BUTTON_MAIN: 'Start Building',
+        FEATURES_LIST: [
+          {
+            primary: 'Choose your parts', 
+            secondary: '8 component categories',
+            iconName: 'Cpu'
+          },
+          {
+            primary: 'See the total', 
+            secondary: 'Price updates as you build',
+            iconName: 'Calculator'
+          },
+          {
+            primary: 'Make it yours', 
+            secondary: 'Name and save your build',
+            iconName: 'Save'
+          },
+        ],
+        MAIN_IMG_ALT: "Custom black PC with a glass side panel, liquid cooling, and violet and cyan lighting"
+      }
+    }
+  },
+  ROUTES: {
+    dashboard: '/dashboard'
   }
 } as const;

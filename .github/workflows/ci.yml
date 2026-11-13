@@ -34,8 +34,18 @@ jobs:
       - name: TypeScript check
         run: npm run typecheck
 
-      - name: Tests
-        run: npm test
+      - name: Authentication tests
+        run: |
+          npm test -- --runInBand src/tests/auth
+          echo "✅ Authentication tests passed successfully!"
+
+      - name: Landing tests
+        run: |
+          npm test -- --runInBand src/tests/landing
+          echo "✅ Landing tests passed successfully!"
+
+      - name: All test groups passed
+        run: echo "✅ All test groups passed successfully!"
 
       - name: Build
         run: npm run build

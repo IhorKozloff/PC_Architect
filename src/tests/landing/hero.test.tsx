@@ -6,10 +6,6 @@ import { Hero } from "@/components/landing/hero"
 import { render, screen } from "@testing-library/react"
 import { appConfig } from '@/config/app.config';
 
-// Рендерит настоящий <Hero />, импортированный из @/components/landing/hero.
-// Находит заголовок первого уровня по имени Build Beyond Limits..
-// Проверяет, что заголовок присутствует в документе.
-// Проверяет, что Hero содержит текст YOUR NEXT BUILD STARTS HERE.
 describe('Hero', () => {
 
   test('main heading and next build text are present', () => {

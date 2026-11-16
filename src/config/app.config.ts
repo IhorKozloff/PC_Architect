@@ -43,6 +43,28 @@ export const appConfig = {
           },
         ],
         MAIN_IMG_ALT: "Custom black PC with a glass side panel, liquid cooling, and violet and cyan lighting"
+      },
+      HOW_IT_WORKS: {
+        EYEBROW_TEXT: 'FROM IDEA TO CONFIGURATION',
+        MAIN_HEADING_TEXT: 'How It Works',
+        DESCRIPTION: 'Three steps to a build that starts with your choices.',
+        STEPS: [
+          {
+            iconName: 'Cpu',
+            title: 'Choose your components',
+            description: 'Sign in and pick parts across eight categories, from the processor to the cooling system.',
+          },
+          {
+            iconName: 'Calculator',
+            title: 'Review your build',
+            description: 'Check your selected models and see the total price update as you add or replace parts.',
+          },
+          {
+            iconName: 'Save',
+            title: 'Give it a name. Save it.',
+            description: 'Open the save dialog, name your configuration, and save it to your account.',
+          },
+        ],
       }
     }
   },

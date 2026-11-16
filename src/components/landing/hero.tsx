@@ -5,6 +5,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { appConfig } from '@/config/app.config';
 
+const content = appConfig.TEXT.LANDING.HERO;
+
 const featureIcons = { Cpu, Calculator, Save };
 
 function CalloutLine({ position }: { position: 'below-right' | 'below-left' | 'above-right' }) {
@@ -46,25 +48,25 @@ function PcPreview() {
           />
         </div>
         <div className="absolute top-[11%] left-[8%] max-w-[41%] border-l border-violet-400/60 pl-2 sm:pl-3">
-          <p className="font-mono text-[9px] tracking-widest text-violet-300 sm:text-[10px]">PROCESSOR</p>
-          <p className="mt-1 text-[10px] font-medium text-white sm:text-xs">AMD Ryzen 7 7800X3D</p>
-          <p className="mt-1 font-mono text-xs text-cyan-300 sm:text-sm">$39,990.00</p>
+          <p className="font-mono text-[9px] tracking-widest text-violet-300 sm:text-[10px]">{content.PREVIEW.PROCESSOR.label}</p>
+          <p className="mt-1 text-[10px] font-medium text-white sm:text-xs">{content.PREVIEW.PROCESSOR.name}</p>
+          <p className="mt-1 font-mono text-xs text-cyan-300 sm:text-sm">{content.PREVIEW.PROCESSOR.price}</p>
           <CalloutLine position="below-right" />
         </div>
         <div className="absolute top-[14%] right-[8%] max-w-[38%] border-r border-cyan-400/60 pr-2 text-right sm:pr-3">
-          <p className="font-mono text-[9px] tracking-widest text-cyan-300 sm:text-[10px]">MEMORY</p>
-          <p className="mt-1 text-[10px] font-medium text-white sm:text-xs">G.Skill Trident Z5<br />32GB DDR5</p>
-          <p className="mt-1 font-mono text-xs text-cyan-300 sm:text-sm">$18,990.00</p>
+          <p className="font-mono text-[9px] tracking-widest text-cyan-300 sm:text-[10px]">{content.PREVIEW.MEMORY.label}</p>
+          <p className="mt-1 text-[10px] font-medium text-white sm:text-xs">{content.PREVIEW.MEMORY.name}<br />{content.PREVIEW.MEMORY.details}</p>
+          <p className="mt-1 font-mono text-xs text-cyan-300 sm:text-sm">{content.PREVIEW.MEMORY.price}</p>
           <CalloutLine position="below-left" />
         </div>
         <div className="absolute bottom-[12%] left-[8%] max-w-[47%] border-l border-violet-400/60 pl-2 sm:pl-3">
-          <p className="font-mono text-[9px] tracking-widest text-violet-300 sm:text-[10px]">GRAPHICS</p>
-          <p className="mt-1 text-[10px] font-medium text-white sm:text-xs">NVIDIA RTX 4080</p>
-          <p className="mt-1 font-mono text-xs text-cyan-300 sm:text-sm">$119,990.00</p>
+          <p className="font-mono text-[9px] tracking-widest text-violet-300 sm:text-[10px]">{content.PREVIEW.GRAPHICS.label}</p>
+          <p className="mt-1 text-[10px] font-medium text-white sm:text-xs">{content.PREVIEW.GRAPHICS.name}</p>
+          <p className="mt-1 font-mono text-xs text-cyan-300 sm:text-sm">{content.PREVIEW.GRAPHICS.price}</p>
           <CalloutLine position="above-right" />
         </div>
       </div>
-      <p className="mt-3 text-center text-[10px] leading-relaxed text-slate-400">Example configuration &middot; Demo prices from the sample catalog</p>
+      <p className="mt-3 text-center text-[10px] leading-relaxed text-slate-400">{content.PREVIEW.CAPTION}</p>
     </div>
   );
 }
@@ -77,15 +79,15 @@ export function Hero() {
           <span aria-hidden="true" className="h-px w-5 shrink-0 bg-[#22D3EE]" /> {appConfig.TEXT.LANDING.HERO.NEXT_BUILD_TEXT}
         </p>
         <h1 id="hero-title" className="text-[clamp(2.75rem,7vw,5.5rem)] leading-[1.05] font-semibold tracking-[-0.05em]">
-        {appConfig.TEXT.LANDING.HERO.MAIN_HEADING_TEXT.main} <span className="text-violet-400">{appConfig.TEXT.LANDING.HERO.MAIN_HEADING_TEXT.hightLighted}</span>
+          {appConfig.TEXT.LANDING.HERO.MAIN_HEADING_TEXT.main} <span className="text-violet-400">{appConfig.TEXT.LANDING.HERO.MAIN_HEADING_TEXT.hightLighted}</span>
         </h1>
         <p className="mt-5 max-w-md text-base leading-relaxed text-slate-400 sm:text-lg lg:max-w-lg">
-        Your vision. Your components. Your PC. Choose your parts, see the total, and save a build that&apos;s entirely yours.
+          {content.DESCRIPTION}
         </p>
         <Link href={appConfig.ROUTES.dashboard} className={cn(buttonVariants(), 'mt-6 h-12 gap-3 rounded-lg bg-[#7C3AED] px-6 text-base text-white shadow-lg shadow-violet-500/20 hover:bg-[#6D28D9] focus-visible:border-cyan-300 focus-visible:ring-cyan-300/60 motion-reduce:transition-none motion-reduce:active:translate-y-0')}>
-        {appConfig.TEXT.LANDING.HERO.CTA_BUTTON_MAIN} <ArrowUpRight aria-hidden="true" className="size-5" />
+          {appConfig.TEXT.LANDING.HERO.CTA_BUTTON_MAIN} <ArrowUpRight aria-hidden="true" className="size-5" />
         </Link>
-        <p className="mt-4 text-xs text-slate-400">Sign in to create and save your build.</p>
+        <p className="mt-4 text-xs text-slate-400">{content.SIGN_IN_TEXT}</p>
         <ul className="mt-8 grid grid-cols-1 gap-4 border-t border-white/10 pt-5 sm:grid-cols-3 sm:gap-3">
           {appConfig.TEXT.LANDING.HERO.FEATURES_LIST.map(({ primary, secondary, iconName }) => {
             const Icon = featureIcons[iconName];

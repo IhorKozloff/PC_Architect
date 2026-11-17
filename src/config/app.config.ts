@@ -3,7 +3,7 @@ export const MIN_PASSWORD_LENGTH = 8;
 export const appConfig = {
   AUTH: {
     EMAIL_REGEX: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-  }, 
+  },
   ERRORS: {
     SIGN_UP: {
       EMAIL_REQUIRED: 'Enter an email!',
@@ -17,9 +17,9 @@ export const appConfig = {
     }
   },
   TEXT: {
-    LANDING:{ 
+    LANDING: {
       HERO: {
-        NEXT_BUILD_TEXT: 'YOUR NEXT BUILD STARTS HERE', 
+        NEXT_BUILD_TEXT: 'YOUR NEXT BUILD STARTS HERE',
         MAIN_HEADING_TEXT: {
           main: 'Build Beyond',
           hightLighted: 'Limits.'
@@ -35,17 +35,17 @@ export const appConfig = {
         },
         FEATURES_LIST: [
           {
-            primary: 'Choose your parts', 
+            primary: 'Choose your parts',
             secondary: '8 component categories',
             iconName: 'Cpu'
           },
           {
-            primary: 'See the total', 
+            primary: 'See the total',
             secondary: 'Price updates as you build',
             iconName: 'Calculator'
           },
           {
-            primary: 'Make it yours', 
+            primary: 'Make it yours',
             secondary: 'Name and save your build',
             iconName: 'Save'
           },
@@ -112,7 +112,14 @@ export const appConfig = {
           },
         ],
       }
-    }
+    },
+    DASHBOARD: {
+      SAVE_BUILD_DIALOG: {
+        title: 'Save build',
+        description: 'Enter the build name',
+        placeholder: 'For example: Gaming PC'
+      }
+    },
   },
   ROUTES: {
     dashboard: '/dashboard'

@@ -360,4 +360,36 @@ describe('SaveBuildDialog', () => {
       expect(nameInput).toHaveValue('');
     });
   });
+
+
+  test('does not close dialog after failed save', async () => {
+    const mockOnOpenChange = jest.fn();
+
+    jest.mocked(saveBuildAction).mockResolvedValue({
+      status: 'error'
+    });
+
+    render(<SaveBuildDialog
+      open={true}
+      onOpenChange={mockOnOpenChange}
+      selectedByCategory={categories}
+    />);
+
+    const dialog = screen.getByRole('dialog', {
+      name: appConfig.TEXT.DASHBOARD.SAVE_BUILD_DIALOG.title
+    });
+    const nameInput = within(dialog).getByRole('textbox', {
+      name: appConfig.TEXT.DASHBOARD.SAVE_BUILD_DIALOG.buildNameInputAriaLabel
+    });
+
+    const user = userEvent.setup();
+    await user.type(nameInput, buildName);
+
+    const saveBtn = within(dialog).getByRole('button', {
+      name: appConfig.TEXT.DASHBOARD.SAVE_BUILD_DIALOG.ctaBtn.save
+    });
+
+    await user.click(saveBtn);
+  })
 });
+

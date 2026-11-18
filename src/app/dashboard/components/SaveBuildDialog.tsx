@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 import { Dialog, DialogTitle, DialogContent, DialogDescription, DialogHeader, DialogFooter } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { useFormStatus } from 'react-dom';
+import { Loader2Icon } from 'lucide-react';
 import { toast } from 'sonner';
 import { appConfig } from '@/config/app.config';
 import { getComponentIds, getComponentIdsString } from '@/lib/utils';
@@ -31,8 +31,8 @@ export function SaveBuildDialog({
 }: Props) {
   const router = useRouter();
   const formRef = useRef<HTMLFormElement>(null);
-  const { pending } = useFormStatus();
-  const [state, formAction] = useActionState(saveBuildAction, initialState);
+
+  const [state, formAction, pending] = useActionState(saveBuildAction, initialState);
 
   const componentIds = useMemo(() => getComponentIds(selectedByCategory)
     , [selectedByCategory]);
@@ -80,11 +80,16 @@ export function SaveBuildDialog({
           <input type="hidden" name="componentIds" value={getComponentIdsString(componentIds)} />
 
           <DialogFooter className="border-white/10 bg-[#0c0f16]/60" id="save-build-modal-window">
-            <Button className="h-11 bg-[#8B5CF6] px-5 text-white hover:bg-[#7C3AED] focus-visible:border-cyan-300 focus-visible:ring-cyan-300/60 motion-reduce:transition-none" type="submit" disabled={pending || componentIds.length === 0}>
-              {pending
-                ? appConfig.TEXT.DASHBOARD.SAVE_BUILD_DIALOG.ctaBtn.processing
-                : appConfig.TEXT.DASHBOARD.SAVE_BUILD_DIALOG.ctaBtn.save
-              }
+            <Button className="h-11 bg-[#8B5CF6] px-5 text-white hover:bg-[#7C3AED] focus-visible:border-cyan-300 focus-visible:ring-cyan-300/60 motion-reduce:transition-none" type="submit" disabled={pending || componentIds.length === 0} aria-busy={pending}>
+              <span className="grid place-items-center">
+                <span aria-hidden={pending} className={`col-start-1 row-start-1 ${pending ? 'invisible' : ''}`}>
+                  {appConfig.TEXT.DASHBOARD.SAVE_BUILD_DIALOG.ctaBtn.save}
+                </span>
+                <span aria-hidden={!pending} className={`col-start-1 row-start-1 flex items-center gap-1 text-xs ${pending ? '' : 'invisible'}`}>
+                  {appConfig.TEXT.DASHBOARD.SAVE_BUILD_DIALOG.ctaBtn.save}
+                  <Loader2Icon aria-hidden="true" className={`size-3 ${pending ? 'motion-safe:animate-spin' : ''}`} />
+                </span>
+              </span>
             </Button>
           </DialogFooter>
         </form>

@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button';
 import { useFormStatus } from 'react-dom';
 import { toast } from 'sonner';
 import { appConfig } from '@/config/app.config';
+import { getComponentIds, getComponentIdsString } from '@/lib/utils';
 
 const initialState: SaveBuildFromState = { status: 'idle' };
 
@@ -33,15 +34,12 @@ export function SaveBuildDialog({
   const { pending } = useFormStatus();
   const [state, formAction] = useActionState(saveBuildAction, initialState);
 
-  const componentIds = useMemo(() => Object
-    .values(selectedByCategory)
-    .filter((componnet): componnet is Component => componnet !== null)
-    .map((component) => component.id)
-  , [selectedByCategory]);
+  const componentIds = useMemo(() => getComponentIds(selectedByCategory)
+    , [selectedByCategory]);
 
   useEffect(() => {
     if (state.status === 'success') {
-      toast.success('Сборка сохранена');
+      toast.success('Build saved successfully!');
       formRef.current?.reset();
 
       onOpenChange(false);
@@ -72,18 +70,21 @@ export function SaveBuildDialog({
 
         <form ref={formRef} action={formAction} className="space-y-4">
           <Input
-            aria-label="Build name"
+            aria-label={appConfig.TEXT.DASHBOARD.SAVE_BUILD_DIALOG.buildNameInputAriaLabel}
             className="h-11 border-white/15 bg-[#0c0f16] text-slate-100 placeholder:text-slate-500 focus-visible:border-cyan-300 focus-visible:ring-cyan-300/25 motion-reduce:transition-none"
             name="name"
             placeholder={appConfig.TEXT.DASHBOARD.SAVE_BUILD_DIALOG.placeholder}
             defaultValue={defaultName}
             required
           />
-          <input type="hidden" name="componentIds" value={componentIds.join(',')} />
+          <input type="hidden" name="componentIds" value={getComponentIdsString(componentIds)} />
 
           <DialogFooter className="border-white/10 bg-[#0c0f16]/60" id="save-build-modal-window">
             <Button className="h-11 bg-[#8B5CF6] px-5 text-white hover:bg-[#7C3AED] focus-visible:border-cyan-300 focus-visible:ring-cyan-300/60 motion-reduce:transition-none" type="submit" disabled={pending || componentIds.length === 0}>
-              {pending ? 'Processing..' : 'Save'}
+              {pending
+                ? appConfig.TEXT.DASHBOARD.SAVE_BUILD_DIALOG.ctaBtn.processing
+                : appConfig.TEXT.DASHBOARD.SAVE_BUILD_DIALOG.ctaBtn.save
+              }
             </Button>
           </DialogFooter>
         </form>

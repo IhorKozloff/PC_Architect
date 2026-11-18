@@ -117,7 +117,12 @@ export const appConfig = {
       SAVE_BUILD_DIALOG: {
         title: 'Save build',
         description: 'Enter the build name',
-        placeholder: 'For example: Gaming PC'
+        buildNameInputAriaLabel: 'Build name',
+        placeholder: 'For example: Gaming PC',
+        ctaBtn: {
+          save: 'Save',
+          processing: 'Processing...'
+        }
       }
     },
   },

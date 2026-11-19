@@ -1,3 +1,4 @@
+import { appConfig } from '@/config/app.config';
 import { Card, CardContent } from '@/components/ui/card';
 import { componentCategories } from '@/lib/constants';
 import { Box, Cpu, Fan, HardDrive, MemoryStick, Monitor, Server, Zap, type LucideIcon } from 'lucide-react';
@@ -10,9 +11,9 @@ export function Components() {
   return (
     <section aria-labelledby="components-title" className="border-t border-white/10 bg-[#0c0f16]">
       <div className="mx-auto w-full max-w-[1440px] px-5 py-16 sm:px-8 sm:py-20">
-        <p className="font-mono text-xs tracking-[0.18em] text-cyan-300">EVERY PART HAS A PLACE</p>
-        <h2 id="components-title" className="mt-3 text-3xl font-semibold tracking-tight text-slate-100 sm:text-4xl">Components</h2>
-        <p className="mt-4 max-w-xl text-base leading-relaxed text-slate-400">Explore the eight categories that bring your next PC together.</p>
+        <p className="font-mono text-xs tracking-[0.18em] text-cyan-300">{appConfig.TEXT.LANDING.COMPONENTS.EYEBROW_TEXT}</p>
+        <h2 id="components-title" className="mt-3 text-3xl font-semibold tracking-tight text-slate-100 sm:text-4xl">{appConfig.TEXT.LANDING.COMPONENTS.MAIN_HEADING_TEXT}</h2>
+        <p className="mt-4 max-w-xl text-base leading-relaxed text-slate-400">{appConfig.TEXT.LANDING.COMPONENTS.DESCRIPTION}</p>
         <ul className="mt-10 grid min-w-0 gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
           {componentCategories.map(({ id, name, icon }) => {
             const Icon = categoryIcons[icon] ?? Cpu;

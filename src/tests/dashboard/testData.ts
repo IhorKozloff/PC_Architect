@@ -17,8 +17,5 @@ export const categories: Record<string, Component | null> = {
   }
 };
 
-export const getCategoryIdsString = () => {
-
-}
-
+export const defaultBuildName = 'My Gaming PC';
 export const buildName = 'PC Gaming!';

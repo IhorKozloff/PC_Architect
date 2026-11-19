@@ -5,7 +5,7 @@ import '@testing-library/jest-dom';
 import { appConfig } from '@/config/app.config';
 import { render, screen, waitFor, within } from '@testing-library/react';
 import { SaveBuildDialog } from '@/app/dashboard/components/SaveBuildDialog';
-import { categories, buildName } from './testData';
+import { categories, buildName, defaultBuildName } from './testData';
 import userEvent from '@testing-library/user-event';
 import { saveBuildAction, SaveBuildFromState } from '@/app/dashboard/actions';
 import { toast } from 'sonner';
@@ -447,6 +447,116 @@ describe('SaveBuildDialog', () => {
     await act(async () => {
       resolveAction({ status: 'success' });
     });
-  })
+  });
+
+  test('save build text are should be empty after reopen dialog', async () => {
+    const mockCloseFn = jest.fn();
+
+    const { rerender } = render(<SaveBuildDialog
+      open={true}
+      onOpenChange={mockCloseFn}
+      selectedByCategory={categories}
+    />);
+
+    const dialog = screen.getByRole('dialog', {
+      name: appConfig.TEXT.DASHBOARD.SAVE_BUILD_DIALOG.title
+    });
+    const nameInput = within(dialog).getByRole('textbox', {
+      name: appConfig.TEXT.DASHBOARD.SAVE_BUILD_DIALOG.buildNameInputAriaLabel
+    });
+    const closeBtn = within(dialog).getByRole('button', {
+      name: 'Close'
+    });
+
+    const user = userEvent.setup();
+    await user.type(nameInput, buildName);
+
+    expect(nameInput).toHaveValue(buildName);
+
+    await user.click(closeBtn);
+    expect(mockCloseFn).toHaveBeenCalledTimes(1);
+    expect(mockCloseFn).toHaveBeenCalledWith(false);
+
+    rerender(<SaveBuildDialog
+      open={false}
+      onOpenChange={mockCloseFn}
+      selectedByCategory={categories}
+    />);
+
+    rerender(<SaveBuildDialog
+      open={true}
+      onOpenChange={mockCloseFn}
+      selectedByCategory={categories}
+    />);
+
+    const reopenedDialog = screen.getByRole('dialog', {
+      name: appConfig.TEXT.DASHBOARD.SAVE_BUILD_DIALOG.title
+    });
+
+    const reopenedInput = within(reopenedDialog).getByRole('textbox', {
+      name: appConfig.TEXT.DASHBOARD.SAVE_BUILD_DIALOG.buildNameInputAriaLabel
+    });
+
+    expect(reopenedInput).toHaveValue('');
+  });
+
+  test('restores defaultName after closing and reopening dialog', async () => {
+    const mockCloseFn = jest.fn();
+
+    const { rerender } = render(<SaveBuildDialog
+      open={true}
+      onOpenChange={mockCloseFn}
+      selectedByCategory={categories}
+      defaultName={defaultBuildName}
+    />);
+
+    const dialog = screen.getByRole('dialog', {
+      name: appConfig.TEXT.DASHBOARD.SAVE_BUILD_DIALOG.title
+    });
+    const nameInput = within(dialog).getByRole('textbox', {
+      name: appConfig.TEXT.DASHBOARD.SAVE_BUILD_DIALOG.buildNameInputAriaLabel,
+    });
+    expect(nameInput).toHaveValue(defaultBuildName);
+
+    const user = userEvent.setup();
+
+    await user.clear(nameInput);
+    await user.type(nameInput, buildName);
+
+    expect(nameInput).toHaveValue(buildName);
+
+    const closeBtn = within(dialog).getByRole('button', {
+      name: 'Close'
+    });
+
+    await user.click(closeBtn);
+
+    expect(mockCloseFn).toHaveBeenCalledTimes(1);
+    expect(mockCloseFn).toHaveBeenCalledWith(false);
+
+    rerender(<SaveBuildDialog
+      open={false}
+      onOpenChange={mockCloseFn}
+      selectedByCategory={categories}
+      defaultName={defaultBuildName}
+    />);
+
+    rerender(<SaveBuildDialog
+      open={true}
+      onOpenChange={mockCloseFn}
+      selectedByCategory={categories}
+      defaultName={defaultBuildName}
+    />);
+
+    const reopenedDialog = screen.getByRole('dialog', {
+      name: appConfig.TEXT.DASHBOARD.SAVE_BUILD_DIALOG.title
+    });
+
+    const reopenedInput = within(reopenedDialog).getByRole('textbox', {
+      name: appConfig.TEXT.DASHBOARD.SAVE_BUILD_DIALOG.buildNameInputAriaLabel
+    });
+
+    expect(reopenedInput).toHaveValue(defaultBuildName);
+  });
 });
 

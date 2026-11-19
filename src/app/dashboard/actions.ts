@@ -4,6 +4,7 @@ import { categoryIdToDbType, Component } from '@/lib/types';
 import { prisma } from '../../../prisma/prisma';
 import { auth } from '@/auth';
 import { revalidatePath } from 'next/cache';
+import { appConfig } from '@/config/app.config';
 
 export type SaveBuildFromState = {
   status: 'idle' | 'success' | 'error',
@@ -42,30 +43,29 @@ export async function saveBuild(
   const session = await auth();
 
   if (!session?.user.id) {
-    return { success: false, error: 'Необходимо войти' };
+    return { success: false, error: appConfig.ERRORS.SAVE_BUILD.SIGN_IN_REQUIRED };
   }
 
   const trimmedName = name.trim();
 
   if (!trimmedName) {
-    return { success: false, error: 'Введите название сборки' };
+    return { success: false, error: appConfig.ERRORS.SAVE_BUILD.NAME_REQUIRED };
   }
 
   if (componentIds.length === 0) {
-    return { success: false, error: 'Добавьте хотябы один компонент' };
+    return { success: false, error: appConfig.ERRORS.SAVE_BUILD.COMPONENTS_REQUIRED };
   }
-
-  const components = await prisma.component.findMany({
-    where: { id: { in: componentIds } }
-  });
-
-  if (components.length !== componentIds.length) {
-    return { success: false, error: 'Некоторые компоненты не найдены' };
-  }
-
-  const totalPrice = components.reduce((s, c) => s + c.price, 0);
 
   try {
+    const components = await prisma.component.findMany({
+      where: { id: { in: componentIds } }
+    });
+
+    if (components.length !== componentIds.length) {
+      return { success: false, error: appConfig.ERRORS.SAVE_BUILD.COMPONENTS_NOT_FOUND };
+    }
+
+    const totalPrice = components.reduce((s, c) => s + c.price, 0);
     const build = await prisma.$transaction(
       async (tx) => {
         const newBuild = await tx.build.create({
@@ -92,7 +92,7 @@ export async function saveBuild(
 
     return { success: true, buildId: build.id };
   } catch (error) {
-    return { success: false, error: 'Не удалось сохранить сборки' };
+    return { success: false, error: appConfig.ERRORS.SAVE_BUILD.SAVE_FAILED };
   }
 }
 

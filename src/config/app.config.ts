@@ -14,6 +14,13 @@ export const appConfig = {
     SIGN_IN: {
       INVALID_EMAIL_OR_PASSWORD: 'Invalid email or password',
       AUTHORIZATION_ERROR: 'Authorization error'
+    },
+    SAVE_BUILD: {
+      SIGN_IN_REQUIRED: 'Please sign in',
+      NAME_REQUIRED: 'Enter a build name',
+      COMPONENTS_REQUIRED: 'Add at least one component',
+      COMPONENTS_NOT_FOUND: 'Some components were not found',
+      SAVE_FAILED: 'Failed to save the build'
     }
   },
   TEXT: {

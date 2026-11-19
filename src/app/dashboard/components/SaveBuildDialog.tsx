@@ -2,7 +2,7 @@
 
 import { Component } from '@/lib/types';
 import { saveBuildAction, SaveBuildFromState } from '../actions';
-import { useActionState, useEffect, useMemo, useRef } from 'react';
+import { useActionState, useEffect, useMemo, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Dialog, DialogTitle, DialogContent, DialogDescription, DialogHeader, DialogFooter } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
@@ -33,6 +33,7 @@ export function SaveBuildDialog({
   const formRef = useRef<HTMLFormElement>(null);
 
   const [state, formAction, pending] = useActionState(saveBuildAction, initialState);
+  const [buildName, setBuildName] = useState(defaultName ?? '');
 
   const componentIds = useMemo(() => getComponentIds(selectedByCategory)
     , [selectedByCategory]);
@@ -40,21 +41,23 @@ export function SaveBuildDialog({
   useEffect(() => {
     if (state.status === 'success') {
       toast.success('Build saved successfully!');
-      formRef.current?.reset();
-
-      onOpenChange(false);
+      handleOpenChange(false);
 
       if (redirectPath) {
         router.push(redirectPath);
       } else {
         router.refresh();
       }
+    };
+
+    if (state.status === 'error') {
+      toast.error(state.message ?? 'Failed to save build');
     }
   }, [onOpenChange, redirectPath, router, state.status]);
 
   const handleOpenChange = (nextOpen: boolean) => {
     if (!nextOpen) {
-      formRef.current?.reset();
+      setBuildName(defaultName ?? '');
     }
 
     onOpenChange(nextOpen);
@@ -74,8 +77,9 @@ export function SaveBuildDialog({
             className="h-11 border-white/15 bg-[#0c0f16] text-slate-100 placeholder:text-slate-500 focus-visible:border-cyan-300 focus-visible:ring-cyan-300/25 motion-reduce:transition-none"
             name="name"
             placeholder={appConfig.TEXT.DASHBOARD.SAVE_BUILD_DIALOG.placeholder}
-            defaultValue={defaultName}
+            value={buildName}
             required
+            onChange={(event) => setBuildName(event.target.value)}
           />
           <input type="hidden" name="componentIds" value={getComponentIdsString(componentIds)} />
 

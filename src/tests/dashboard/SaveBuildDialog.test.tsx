@@ -7,8 +7,9 @@ import { render, screen, waitFor, within } from '@testing-library/react';
 import { SaveBuildDialog } from '@/app/dashboard/components/SaveBuildDialog';
 import { categories, buildName } from './testData';
 import userEvent from '@testing-library/user-event';
-import { saveBuildAction } from '@/app/dashboard/actions';
+import { saveBuildAction, SaveBuildFromState } from '@/app/dashboard/actions';
 import { toast } from 'sonner';
+import { act } from 'react';
 
 const mockPush = jest.fn();
 const mockRefresh = jest.fn();
@@ -16,6 +17,7 @@ const mockRefresh = jest.fn();
 jest.mock('sonner', () => ({
   toast: {
     success: jest.fn(),
+    error: jest.fn(),
   },
 }));
 
@@ -363,11 +365,15 @@ describe('SaveBuildDialog', () => {
 
 
   test('does not close dialog after failed save', async () => {
-    const mockOnOpenChange = jest.fn();
+    let resolveAction!: (value: SaveBuildFromState) => void;
 
-    jest.mocked(saveBuildAction).mockResolvedValue({
-      status: 'error'
+    const actionPromise = new Promise<SaveBuildFromState>((resolve) => {
+      resolveAction = resolve;
     });
+
+    jest.mocked(saveBuildAction).mockReturnValue(actionPromise);
+
+    const mockOnOpenChange = jest.fn();
 
     render(<SaveBuildDialog
       open={true}
@@ -390,6 +396,57 @@ describe('SaveBuildDialog', () => {
     });
 
     await user.click(saveBtn);
+    await act(async () => {
+      resolveAction({ status: 'error', message: appConfig.ERRORS.SAVE_BUILD.SAVE_FAILED });
+    });
+
+    await waitFor(() => {
+      expect(saveBtn).toHaveAttribute("aria-busy", "false");
+      expect(nameInput).toHaveValue(buildName);
+      expect(mockOnOpenChange).not.toHaveBeenCalled();
+      expect(toast.error).toHaveBeenCalledTimes(1);
+      expect(toast.error).toHaveBeenCalledWith(appConfig.ERRORS.SAVE_BUILD.SAVE_FAILED);
+    })
+
+  });
+
+  test('submit form: is save btn locked while pending', async () => {
+    let resolveAction!: (value: SaveBuildFromState) => void;
+
+    const actionPromise = new Promise<SaveBuildFromState>((resolve) => {
+      resolveAction = resolve;
+    });
+
+    jest.mocked(saveBuildAction).mockReturnValue(actionPromise);
+
+    render(<SaveBuildDialog
+      open={true}
+      onOpenChange={jest.fn()}
+      selectedByCategory={categories}
+    />);
+
+    const dialog = screen.getByRole('dialog', {
+      name: appConfig.TEXT.DASHBOARD.SAVE_BUILD_DIALOG.title
+    });
+    const nameInput = within(dialog).getByRole('textbox', {
+      name: appConfig.TEXT.DASHBOARD.SAVE_BUILD_DIALOG.buildNameInputAriaLabel
+    });
+
+    const user = userEvent.setup();
+    await user.type(nameInput, buildName);
+
+    const saveBtn = within(dialog).getByRole('button', {
+      name: appConfig.TEXT.DASHBOARD.SAVE_BUILD_DIALOG.ctaBtn.save
+    });
+
+    await user.click(saveBtn);
+
+    expect(saveBtn).toBeDisabled();
+    expect(saveBtn).toHaveAttribute('aria-busy', 'true');
+
+    await act(async () => {
+      resolveAction({ status: 'success' });
+    });
   })
 });
 

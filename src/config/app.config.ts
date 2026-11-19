@@ -57,7 +57,7 @@ export const appConfig = {
             iconName: 'Save'
           },
         ],
-        MAIN_IMG_ALT: "Custom black PC with a glass side panel, liquid cooling, and violet and cyan lighting"
+        MAIN_IMG_ALT: 'Custom black PC with a glass side panel, liquid cooling, and violet and cyan lighting'
       },
       FEATURES: {
         EYEBROW_TEXT: 'BUILT AROUND YOUR CHOICES',

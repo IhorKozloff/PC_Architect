@@ -2,8 +2,8 @@
  * @jest-environment jsdom
  */
 import '@testing-library/jest-dom';
-import { Hero } from "@/components/landing/hero"
-import { render, screen } from "@testing-library/react"
+import { Hero } from '@/components/landing/hero';
+import { render, screen } from '@testing-library/react';
 import { appConfig } from '@/config/app.config';
 
 describe('Hero', () => {

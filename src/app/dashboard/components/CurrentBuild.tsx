@@ -16,8 +16,8 @@ export function CurrentBuild() {
       return {
         ...prev,
         [categoryId]: component
-      }
-    })
+      };
+    });
   }, []);
 
   return (

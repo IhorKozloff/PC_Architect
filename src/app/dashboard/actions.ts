@@ -91,7 +91,7 @@ export async function saveBuild(
     revalidatePath('/builds');
 
     return { success: true, buildId: build.id };
-  } catch (error) {
+  } catch {
     return { success: false, error: appConfig.ERRORS.SAVE_BUILD.SAVE_FAILED };
   }
 }

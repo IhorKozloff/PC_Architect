@@ -14,9 +14,6 @@ export function getTabValue(pathname: string) {
   return null;
 }
 
-
-
-
 export const getComponentIds = (selectedByCategory: Record<string, Component | null>) => {
   return Object
     .values(selectedByCategory)

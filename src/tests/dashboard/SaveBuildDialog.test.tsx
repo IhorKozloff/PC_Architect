@@ -56,7 +56,7 @@ describe('SaveBuildDialog', () => {
 
     const nameInput = within(dialog).getByRole('textbox', {
       name: appConfig.TEXT.DASHBOARD.SAVE_BUILD_DIALOG.buildNameInputAriaLabel
-    })
+    });
 
     const saveBtn = within(dialog).getByRole('button', {
       name: appConfig.TEXT.DASHBOARD.SAVE_BUILD_DIALOG.ctaBtn.save
@@ -67,7 +67,7 @@ describe('SaveBuildDialog', () => {
     expect(saveBtn).toBeInTheDocument();
 
     expect(nameInput).toBeRequired();
-    expect(nameInput).toHaveAttribute('placeholder', appConfig.TEXT.DASHBOARD.SAVE_BUILD_DIALOG.placeholder)
+    expect(nameInput).toHaveAttribute('placeholder', appConfig.TEXT.DASHBOARD.SAVE_BUILD_DIALOG.placeholder);
   });
 
   test('render dialog, save btn should be disabled', async () => {
@@ -133,7 +133,6 @@ describe('SaveBuildDialog', () => {
 
   test('user can write build name', async () => {
 
-
     render(<SaveBuildDialog
       open={true}
       onOpenChange={jest.fn()}
@@ -145,7 +144,7 @@ describe('SaveBuildDialog', () => {
     });
     const nameInput = within(dialog).getByRole('textbox', {
       name: appConfig.TEXT.DASHBOARD.SAVE_BUILD_DIALOG.buildNameInputAriaLabel
-    })
+    });
     expect(nameInput).toHaveValue('');
 
     const user = userEvent.setup();
@@ -171,7 +170,6 @@ describe('SaveBuildDialog', () => {
     const nameInput = within(dialog).getByRole('textbox', {
       name: appConfig.TEXT.DASHBOARD.SAVE_BUILD_DIALOG.buildNameInputAriaLabel
     });
-
 
     const user = userEvent.setup();
     await user.type(nameInput, buildName);
@@ -303,7 +301,7 @@ describe('SaveBuildDialog', () => {
       open={true}
       onOpenChange={jest.fn()}
       selectedByCategory={categories}
-      redirectPath='/'
+      redirectPath="/"
     />);
 
     const dialog = screen.getByRole('dialog', {
@@ -325,10 +323,9 @@ describe('SaveBuildDialog', () => {
       expect(mockRefresh).not.toHaveBeenCalled();
       expect(mockPush).toHaveBeenCalledTimes(1);
       expect(mockPush).toHaveBeenCalledWith('/');
-    })
+    });
 
   });
-
 
   test('resets build name after successful save', async () => {
     jest.mocked(saveBuildAction).mockResolvedValue({
@@ -362,7 +359,6 @@ describe('SaveBuildDialog', () => {
       expect(nameInput).toHaveValue('');
     });
   });
-
 
   test('does not close dialog after failed save', async () => {
     let resolveAction!: (value: SaveBuildFromState) => void;
@@ -401,12 +397,12 @@ describe('SaveBuildDialog', () => {
     });
 
     await waitFor(() => {
-      expect(saveBtn).toHaveAttribute("aria-busy", "false");
+      expect(saveBtn).toHaveAttribute('aria-busy', 'false');
       expect(nameInput).toHaveValue(buildName);
       expect(mockOnOpenChange).not.toHaveBeenCalled();
       expect(toast.error).toHaveBeenCalledTimes(1);
       expect(toast.error).toHaveBeenCalledWith(appConfig.ERRORS.SAVE_BUILD.SAVE_FAILED);
-    })
+    });
 
   });
 
@@ -559,4 +555,3 @@ describe('SaveBuildDialog', () => {
     expect(reopenedInput).toHaveValue(defaultBuildName);
   });
 });
-

@@ -1,4 +1,4 @@
-import { Component } from "@/lib/types";
+import { Component } from '@/lib/types';
 
 export const categories: Record<string, Component | null> = {
   cpu: {

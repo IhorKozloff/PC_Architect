@@ -2,7 +2,7 @@
 
 import { Component } from '@/lib/types';
 import { saveBuildAction, SaveBuildFromState } from '../actions';
-import { useActionState, useEffect, useMemo, useRef, useState } from 'react';
+import { useActionState, useMemo, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Dialog, DialogTitle, DialogContent, DialogDescription, DialogHeader, DialogFooter } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
@@ -32,13 +32,22 @@ export function SaveBuildDialog({
   const router = useRouter();
   const formRef = useRef<HTMLFormElement>(null);
 
-  const [state, formAction, pending] = useActionState(saveBuildAction, initialState);
   const [buildName, setBuildName] = useState(defaultName ?? '');
 
   const componentIds = useMemo(() => getComponentIds(selectedByCategory)
     , [selectedByCategory]);
 
-  useEffect(() => {
+  const handleOpenChange = (nextOpen: boolean): void => {
+    if (!nextOpen) {
+      setBuildName(defaultName ?? '');
+    }
+
+    onOpenChange(nextOpen);
+  };
+
+  const [ , formAction, pending] = useActionState(async (previousState: SaveBuildFromState, formData: FormData) => {
+    const state = await saveBuildAction(previousState, formData);
+
     if (state.status === 'success') {
       toast.success('Build saved successfully!');
       handleOpenChange(false);
@@ -48,20 +57,12 @@ export function SaveBuildDialog({
       } else {
         router.refresh();
       }
-    };
-
-    if (state.status === 'error') {
+    } else if (state.status === 'error') {
       toast.error(state.message ?? 'Failed to save build');
     }
-  }, [onOpenChange, redirectPath, router, state.status]);
 
-  const handleOpenChange = (nextOpen: boolean) => {
-    if (!nextOpen) {
-      setBuildName(defaultName ?? '');
-    }
-
-    onOpenChange(nextOpen);
-  };
+    return state;
+  }, initialState);
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>

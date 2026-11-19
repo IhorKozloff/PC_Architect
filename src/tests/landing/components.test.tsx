@@ -2,10 +2,8 @@
  * @jest-environment jsdom
  */
 import '@testing-library/jest-dom';
-import { HowItWorks } from '@/components/landing/how-it-works';
 import { appConfig } from '@/config/app.config';
 import { render, screen, within } from '@testing-library/react';
-import { Features } from '@/components/landing/features';
 import { Components } from '@/components/landing/components';
 import { componentCategories } from '@/lib/constants';
 
@@ -27,7 +25,7 @@ describe('components', () => {
     expect(description).toBeInTheDocument();
     expect(section).toHaveTextContent(appConfig.TEXT.LANDING.COMPONENTS.EYEBROW_TEXT);
 
-    const list = within(section).getByRole('list')
+    const list = within(section).getByRole('list');
     const items = within(list).getAllByRole('listitem');
 
     expect(list.tagName).toBe('UL');
@@ -40,10 +38,10 @@ describe('components', () => {
         name: appConfig.TEXT.LANDING.COMPONENTS.CATEGORY_NAMES[nameKey]
       });
 
-      const svg = item.querySelector('svg')
+      const svg = item.querySelector('svg');
       expect(svg).toBeInTheDocument();
-      expect(svg).toHaveAttribute('aria-hidden', "true")
+      expect(svg).toHaveAttribute('aria-hidden', 'true');
       expect(heading).toBeInTheDocument();
     });
-  })
-})
+  });
+});

@@ -9,8 +9,7 @@
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
     "generate": "npx prisma generate",
-    "test": "npx playwright test landing.spec.ts --project=chromium"
-  
+    "test": "./node_modules/.bin/dotenv -e .env.test -- ./node_modules/.bin/playwright test src/tests/e2e/signup.spec.ts --project=chromium"
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",
@@ -47,6 +46,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "babel-plugin-react-compiler": "1.0.0",
+    "dotenv-cli": "^11.1.0",
     "eslint": "^9",
     "eslint-config-next": "16.3.3",
     "jest": "^30.5.2",

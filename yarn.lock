@@ -1047,6 +1047,13 @@
   resolved "https://registry.npmjs.org/@pkgr/core/-/core-0.3.6.tgz"
   integrity sha512-SEeaJLb3qBNF/OaXnaR1NmmBbFYk1zC0ZH/52fATcRPLFg/p791YrcyFFy44Bo9sLaGuSuLp5Q6axbb/O+v/RA==
 
+"@playwright/test@^1.51.1", "@playwright/test@^1.65.1":
+  version "1.65.1"
+  resolved "https://registry.npmjs.org/@playwright/test/-/test-1.65.1.tgz"
+  integrity sha512-y+NCIRm2LvY4slUVWvGh1nujJ8RF/hEisIsq2mtUPgdQC4L701bq5hZGMhrpeXjACvwvO9tj5dJqhvM6TP9lbw==
+  dependencies:
+    playwright "1.65.1"
+
 "@prisma/adapter-pg@^7.10.0":
   version "7.10.0"
   resolved "https://registry.npmjs.org/@prisma/adapter-pg/-/adapter-pg-7.10.0.tgz"
@@ -5800,6 +5807,18 @@ pkg-up@^3.1.0:
   integrity sha512-nDywThFk1i4BQK4twPQ6TA4RT8bDY96yeuCVBWL3ePARCiEKDRSrNGbFIgUJpLp+XeIR65v8ra7WuJOFUBtkMA==
   dependencies:
     find-up "^3.0.0"
+
+playwright-core@1.65.1:
+  version "1.65.1"
+  resolved "https://registry.npmjs.org/playwright-core/-/playwright-core-1.65.1.tgz"
+  integrity sha512-hqPpz7blSMPxWVdoeE1yiBSzXsKiVOd2k+kjCvmUywD2GPO2Dd9HfcWnq9NN0GHbNZDFgZ9JfBFr+X5/BLo0qw==
+
+playwright@1.65.1:
+  version "1.65.1"
+  resolved "https://registry.npmjs.org/playwright/-/playwright-1.65.1.tgz"
+  integrity sha512-vJ1FuoOrNwOKHUIVEvSt3jT1L+wjjDpwhwIstKtfvTh8XIG4FG4bIFuvNdMxi81LGfAhUgUZleVFaOLY4RIUUw==
+  dependencies:
+    playwright-core "1.65.1"
 
 possible-typed-array-names@^1.0.0, possible-typed-array-names@^1.1.0:
   version "1.1.0"

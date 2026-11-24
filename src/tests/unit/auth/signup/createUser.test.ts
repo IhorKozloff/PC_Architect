@@ -1,12 +1,12 @@
 import bcrypt from 'bcrypt';
 import { createUser } from '@/app/signup/actions/signupUser';
-import { prisma } from '../../../../prisma/prisma';
+import { prisma } from '../../../../../prisma/prisma';
 import { authTestData } from '../testData';
 import { appConfig } from '@/config/app.config';
 
 jest.mock('bcrypt');
 
-jest.mock('../../../../prisma/prisma', () => ({
+jest.mock('../../../../../prisma/prisma', () => ({
   prisma: {
     user: {
       findUnique: jest.fn(),

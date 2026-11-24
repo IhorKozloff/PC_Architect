@@ -36,16 +36,73 @@ jobs:
 
       - name: Authentication tests
         run: |
-          npm test -- --runInBand src/tests/auth
+          npm test -- --runInBand src/tests/unit/auth
           echo "✅ Authentication tests passed successfully!"
 
       - name: Landing tests
         run: |
-          npm test -- --runInBand src/tests/landing
+          npm test -- --runInBand src/tests/unit/landing
           echo "✅ Landing tests passed successfully!"
+
+      - name: Dashboard tests
+        run: |
+          npm test -- --runInBand src/tests/unit/dashboard
+          echo "✅ Dashboard tests passed successfully!"
 
       - name: All test groups passed
         run: echo "✅ All test groups passed successfully!"
 
       - name: Build
         run: npm run build
+  e2e-tests:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: pcarchitect
+          POSTGRES_PASSWORD: testpassword
+          POSTGRES_DB: pc_architect_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U pcarchitect -d pc_architect_test"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      DATABASE_URL: postgresql://pcarchitect:testpassword@localhost:5432/pc_architect_test?schema=public
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate Prisma Client
+        run: npm run generate
+
+      - name: Apply database migrations
+        run: npx prisma migrate deploy
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Run E2E tests
+        run: npx playwright test --project=chromium
+
+      - name: Upload Playwright report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          if-no-files-found: ignore      

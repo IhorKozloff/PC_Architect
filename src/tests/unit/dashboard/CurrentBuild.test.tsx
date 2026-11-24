@@ -1,6 +1,7 @@
 /**
  * @jest-environment jsdom
  */
+
 import '@testing-library/jest-dom';
 import { appConfig } from '@/config/app.config';
 import { render, screen, within } from '@testing-library/react';

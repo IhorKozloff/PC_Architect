@@ -36,13 +36,18 @@ jobs:
 
       - name: Authentication tests
         run: |
-          npm test -- --runInBand src/tests/auth
+          npm test -- --runInBand src/tests/unit/auth
           echo "✅ Authentication tests passed successfully!"
 
       - name: Landing tests
         run: |
-          npm test -- --runInBand src/tests/landing
+          npm test -- --runInBand src/tests/unit/landing
           echo "✅ Landing tests passed successfully!"
+
+      - name: Dashboard tests
+        run: |
+          npm test -- --runInBand src/tests/unit/dashboard
+          echo "✅ Dashboard tests passed successfully!"
 
       - name: All test groups passed
         run: echo "✅ All test groups passed successfully!"

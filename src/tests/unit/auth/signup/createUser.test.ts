@@ -6,7 +6,7 @@ import { appConfig } from '@/config/app.config';
 
 jest.mock('bcrypt');
 
-jest.mock('../../../../prisma/prisma', () => ({
+jest.mock('../../../../../prisma/prisma', () => ({
   prisma: {
     user: {
       findUnique: jest.fn(),

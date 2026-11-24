@@ -9,7 +9,8 @@
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
     "generate": "npx prisma generate",
-    "test": "./node_modules/.bin/dotenv -e .env.test -- ./node_modules/.bin/playwright test src/tests/e2e/signup.spec.ts --project=chromium"
+    "test": "jest",
+    "test:e2e": "./node_modules/.bin/dotenv -e .env.test -- ./node_modules/.bin/playwright test src/tests/e2e/signup.spec.ts --project=chromium"
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",

@@ -80,11 +80,16 @@ export const appConfig = {
         },
       },
       FINAL_CTA: {
-        EYEBROW_TEXT: 'YOUR VISION. YOUR BUILD.',
-        MAIN_HEADING_TEXT: 'Ready to build beyond limits?',
-        DESCRIPTION: 'Choose your components, review the total, and make your next PC your own.',
+        EYEBROW_TEXT: 'READY FOR THE NEXT STEP?',
+        MAIN_HEADING_TEXT: 'Let\'s get to work.',
+        STEPS: [
+          { number: '01', label: 'Choose' },
+          { number: '02', label: 'Configure' },
+          { number: '03', label: 'Review' },
+          { number: '04', label: 'Save' },
+        ],
+        DESCRIPTION: 'Your components. Your decisions. Your next PC.',
         CTA_BUTTON_MAIN: 'Start Building',
-        SIGN_IN_TEXT: 'Sign in to create and save your build.',
       },
       FOOTER: {
         BRAND: { main: 'PC', highlighted: 'Architect' },

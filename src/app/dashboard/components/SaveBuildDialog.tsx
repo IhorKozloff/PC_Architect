@@ -66,7 +66,7 @@ export function SaveBuildDialog({
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogContent className="max-h-[85svh] overflow-y-auto border border-white/10 bg-[#111621] text-slate-100 ring-0 motion-reduce:animate-none [&_[data-slot=dialog-title]]:text-xl [&_[data-slot=dialog-title]]:leading-snug [&_[data-slot=dialog-description]]:text-slate-400 [&_[data-slot=dialog-close]]:text-slate-400 [&_[data-slot=dialog-close]]:hover:bg-white/10 [&_[data-slot=dialog-close]]:focus-visible:ring-cyan-300/60">
+      <DialogContent className="max-h-[85svh] overflow-y-auto border border-border ring-0 motion-reduce:animate-none [&_[data-slot=dialog-title]]:text-xl [&_[data-slot=dialog-title]]:leading-snug [&_[data-slot=dialog-description]]:text-muted-foreground">
         <DialogHeader className="pr-8">
           <DialogTitle>{appConfig.TEXT.DASHBOARD.SAVE_BUILD_DIALOG.title}</DialogTitle>
           <DialogDescription>{appConfig.TEXT.DASHBOARD.SAVE_BUILD_DIALOG.description}</DialogDescription>
@@ -75,7 +75,7 @@ export function SaveBuildDialog({
         <form ref={formRef} action={formAction} className="space-y-4">
           <Input
             aria-label={appConfig.TEXT.DASHBOARD.SAVE_BUILD_DIALOG.buildNameInputAriaLabel}
-            className="h-11 border-white/15 bg-[#0c0f16] text-slate-100 placeholder:text-slate-500 focus-visible:border-cyan-300 focus-visible:ring-cyan-300/25 motion-reduce:transition-none"
+            className="h-11 focus-visible:border-input focus-visible:ring-0 motion-reduce:transition-none"
             name="name"
             placeholder={appConfig.TEXT.DASHBOARD.SAVE_BUILD_DIALOG.placeholder}
             value={buildName}
@@ -84,8 +84,8 @@ export function SaveBuildDialog({
           />
           <input type="hidden" name="componentIds" value={getComponentIdsString(componentIds)} />
 
-          <DialogFooter className="border-white/10 bg-[#0c0f16]/60" id="save-build-modal-window">
-            <Button className="h-11 bg-[#8B5CF6] px-5 text-white hover:bg-[#7C3AED] focus-visible:border-cyan-300 focus-visible:ring-cyan-300/60 motion-reduce:transition-none" type="submit" disabled={pending || componentIds.length === 0} aria-busy={pending}>
+          <DialogFooter className="border-border bg-background/60" id="save-build-modal-window">
+            <Button className="h-11 px-5 motion-reduce:transition-none" type="submit" disabled={pending || componentIds.length === 0} aria-busy={pending}>
               <span className="grid place-items-center">
                 <span aria-hidden={pending} className={`col-start-1 row-start-1 ${pending ? 'invisible' : ''}`}>
                   {appConfig.TEXT.DASHBOARD.SAVE_BUILD_DIALOG.ctaBtn.save}

@@ -27,8 +27,8 @@ export function AddComponentDialogContent({ categoryId, categoryName, onSelect }
   }, [categoryId]);
 
   return (
-    <DialogContent className="flex max-h-[85svh] w-[calc(100%-2rem)] max-w-4xl flex-col overflow-hidden border border-white/10 bg-[#111621] text-slate-100 ring-0 sm:max-w-4xl motion-reduce:animate-none [&_[data-slot=dialog-close]]:text-slate-400 [&_[data-slot=dialog-close]]:hover:bg-white/10 [&_[data-slot=dialog-close]]:focus-visible:ring-cyan-300/60">
-      <DialogHeader className="border-b border-white/10 pb-4 pr-8">
+    <DialogContent className="flex max-h-[85svh] w-[calc(100%-2rem)] max-w-4xl flex-col overflow-hidden border border-border ring-0 sm:max-w-4xl motion-reduce:animate-none">
+      <DialogHeader className="border-b border-border pb-4 pr-8">
         <DialogTitle className="text-xl leading-snug font-semibold tracking-tight">Add component - {categoryName}</DialogTitle>
       </DialogHeader>
       <div className="mx-1 min-h-0 min-w-0 flex-1 overflow-y-auto px-1 pb-1">
@@ -47,7 +47,7 @@ export function AddComponentDialogContent({ categoryId, categoryName, onSelect }
               }
             </div>
           ) : (
-            <p className="py-8 text-center text-sm text-slate-400">
+            <p className="py-8 text-center text-sm text-muted-foreground">
               {loading ? 'Loading' : 'No data!'}
             </p>
           )

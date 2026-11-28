@@ -29,11 +29,11 @@ test('Hero CTA redirects unauthenticated user to login', async ({ page }) => {
 
 test('Final CTA redirects unauthenticated user to login', async ({ page }) => {
   await page.goto('/');
-  const hero = page.getByRole('region', {
+  const cta = page.getByRole('region', {
     name: appConfig.TEXT.LANDING.FINAL_CTA.MAIN_HEADING_TEXT
   });
-  await expect(hero).toBeVisible();
-  const startBuilding = hero.getByRole('button', {
+  await expect(cta).toBeVisible();
+  const startBuilding = cta.getByRole('link', {
     name: appConfig.TEXT.LANDING.FINAL_CTA.CTA_BUTTON_MAIN
   });
   await expect(startBuilding).toBeVisible();

@@ -23,15 +23,15 @@ describe('', () => {
       name: appConfig.TEXT.LANDING.FINAL_CTA.MAIN_HEADING_TEXT
     });
     expect(heading).toBeInTheDocument();
-
-    const signInText = within(section).getByText(appConfig.TEXT.LANDING.FINAL_CTA.SIGN_IN_TEXT);
-    expect(signInText).toBeInTheDocument();
+    const steps = within(section).getAllByRole('listitem');
+    expect(steps.map(step => step.textContent)).toEqual(
+      appConfig.TEXT.LANDING.FINAL_CTA.STEPS.map(({ number, label }) => number + label)
+    );
   });
 
   test('render CTA navigation element', () => {
     render(<FinalCta />);
-    // screen.debug();
-    const redirectLink = screen.getByRole('button', {
+    const redirectLink = screen.getByRole('link', {
       name: appConfig.TEXT.LANDING.FINAL_CTA.CTA_BUTTON_MAIN
     });
 

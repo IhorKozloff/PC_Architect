@@ -8,7 +8,7 @@ import { Footer } from '@/components/landing/footer';
 export default function Home() {
   return (
     <>
-      <main data-landing className="relative isolate flex flex-1 flex-col overflow-hidden bg-landing-background text-landing-foreground">
+      <main className="relative isolate flex flex-1 flex-col overflow-hidden bg-landing-background text-landing-foreground">
         <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-radial-[ellipse_at_top_right] from-landing-ice/8 to-transparent to-60%" />
         <Hero />
         <HowItWorks />

@@ -18,9 +18,9 @@ export function HeaderNav({ session }: IProps) {
       <>
         {pathname !== '/login' && <div className="flex min-w-0 items-center justify-between gap-4">
           <div className="min-w-0">
-            <Link href={session?.user ? '/dashboard' : '/'} className="rounded-sm text-lg font-semibold tracking-tight text-slate-100 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan-300 landing:text-landing-foreground landing:focus-visible:outline-landing-ice sm:text-xl">PC <span className="text-violet-400 landing:text-landing-orange">Architect</span></Link>
+            <Link href={session?.user ? '/dashboard' : '/'} className="rounded-sm text-lg font-semibold tracking-tight text-foreground focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring sm:text-xl">PC <span className="text-primary">Architect</span></Link>
           </div>
-          <div className="flex shrink-0 justify-end"><Button nativeButton={false} render={<Link href="/login" />} variant={'secondary'} size={'sm'} className="h-10 border border-[#8B5CF6]/40 bg-[#8B5CF6]/10 px-4 text-violet-200 hover:bg-[#8B5CF6]/20 focus-visible:border-cyan-300 focus-visible:ring-cyan-300/60 motion-reduce:transition-none landing:border-landing-ice landing:bg-transparent landing:text-landing-foreground landing:hover:bg-landing-ice/10 landing:active:bg-landing-ice/15 landing:focus-visible:border-landing-ice landing:focus-visible:ring-0 landing:focus-visible:outline-2 landing:focus-visible:outline-offset-2 landing:focus-visible:outline-landing-ice">
+          <div className="flex shrink-0 justify-end"><Button nativeButton={false} render={<Link href="/login" />} variant={'secondary'} size={'sm'} className="h-10 border border-accent bg-transparent px-4 text-foreground hover:bg-accent/10 active:bg-accent/15 focus-visible:border-accent focus-visible:ring-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring motion-reduce:transition-none">
             Log In
           </Button></div>
         </div>}
@@ -31,17 +31,17 @@ export function HeaderNav({ session }: IProps) {
   return (
     <div className="grid min-w-0 grid-cols-[minmax(0,1fr)_auto] items-center gap-4 lg:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)]">
       <div className="min-w-0">
-        <Link href={session?.user ? '/dashboard' : '/'} className="rounded-sm text-lg font-semibold tracking-tight text-slate-100 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan-300 landing:text-landing-foreground landing:focus-visible:outline-landing-ice sm:text-xl">PC <span className="text-violet-400 landing:text-landing-orange">Architect</span></Link>
+        <Link href={session?.user ? '/dashboard' : '/'} className="rounded-sm text-lg font-semibold tracking-tight text-foreground focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring sm:text-xl">PC <span className="text-primary">Architect</span></Link>
       </div>
       <div className="order-last col-span-2 min-w-0 lg:order-none lg:col-span-1">
-        <ul className="grid w-full grid-cols-1 gap-1 rounded-xl border border-white/10 bg-[#111621] p-1 landing:border-landing-border landing:bg-landing-surface sm:grid-cols-3">
+        <ul className="grid w-full grid-cols-1 gap-1 rounded-xl border border-border bg-secondary p-1 sm:grid-cols-3">
           {[
             { href: '/dashboard', label: 'Create new build', icon: Plus },
             { href: '/builds', label: 'My builds', icon: LayoutList },
             { href: '/builds/explore', label: 'Public builds', icon: Users },
           ].map(({ href, label, icon: Icon }) => (
             <li key={href} className="min-w-0">
-              <Link href={href} aria-current={pathname === href ? 'page' : undefined} className="flex min-h-10 items-center justify-center gap-2 rounded-lg border border-transparent px-3 py-2 text-sm font-medium text-slate-300 hover:text-cyan-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300 aria-[current=page]:border-violet-400/30 aria-[current=page]:bg-[#8B5CF6]/15 aria-[current=page]:text-violet-200 landing:text-landing-muted landing:hover:text-landing-ice landing:active:text-landing-ice landing:focus-visible:outline-landing-ice">
+              <Link href={href} aria-current={pathname === href ? 'page' : undefined} className="flex min-h-10 items-center justify-center gap-2 rounded-lg border border-transparent px-3 py-2 text-sm font-medium text-muted-foreground hover:text-accent active:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring aria-[current=page]:border-primary/25 aria-[current=page]:bg-primary/10 aria-[current=page]:text-primary">
                 <Icon aria-hidden="true" className="size-4 shrink-0" />
                 {label}
               </Link>
@@ -55,7 +55,7 @@ export function HeaderNav({ session }: IProps) {
           variant={'secondary'}
           size={'sm'}
           type={'button'}
-          className="h-10 border border-white/15 bg-[#111621] px-4 text-slate-200 hover:bg-[#1b2233] hover:text-cyan-300 focus-visible:border-cyan-300 focus-visible:ring-cyan-300/60 motion-reduce:transition-none landing:border-landing-ice landing:bg-landing-surface landing:text-landing-foreground landing:hover:bg-landing-ice/10 landing:hover:text-landing-ice landing:active:bg-landing-ice/15 landing:focus-visible:border-landing-ice landing:focus-visible:ring-0 landing:focus-visible:outline-2 landing:focus-visible:outline-offset-2 landing:focus-visible:outline-landing-ice"
+          className="h-10 border border-accent bg-secondary px-4 text-foreground hover:bg-accent/10 hover:text-accent active:bg-accent/15 focus-visible:border-accent focus-visible:ring-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring motion-reduce:transition-none"
           onClick={() => logoutAction()}
         >
           Sign Out

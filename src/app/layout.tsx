@@ -29,7 +29,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       lang="en"
       className={cn('h-full', 'antialiased', geistSans.variable, geistMono.variable, 'font-sans', inter.variable)}
     >
-      <body className="min-h-full flex flex-col bg-black">
+      <body className="min-h-full flex flex-col bg-background">
         <Header />
         {children}
         <Toaster position="top-center"/>

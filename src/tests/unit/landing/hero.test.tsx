@@ -52,6 +52,6 @@ describe('Hero', () => {
       name: appConfig.TEXT.LANDING.HERO.MAIN_IMG_ALT
     });
 
-    expect(image).toHaveAttribute('src', expect.stringContaining('hero-pc-cutout.png'));
+    expect(image).toHaveAttribute('src', expect.stringContaining('hero-pc-studio.png'));
   });
 });

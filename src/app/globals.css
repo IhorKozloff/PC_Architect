@@ -3,6 +3,33 @@
 @import "shadcn/tailwind.css";
 
 @custom-variant dark (&:is(.dark *));
+@custom-variant landing (body:has(> main[data-landing]) &);
+
+@theme {
+  --color-landing-background: #101820;
+  --color-landing-surface: #1C2833;
+  --color-landing-orange: #F97316;
+  --color-landing-orange-hover: #EA580C;
+  --color-landing-ice: #7DD3FC;
+  --color-landing-foreground: #F0F9FF;
+  --color-landing-muted: #9EAFBF;
+  --color-landing-border: #30414F;
+}
+
+@utility landing-cta-panel {
+  background:
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--color-landing-ice) 9%, var(--color-landing-background)),
+      var(--color-landing-background),
+      color-mix(in srgb, var(--color-landing-orange) 10%, var(--color-landing-background))
+    ) padding-box,
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--color-landing-ice) 42%, var(--color-landing-border)),
+      color-mix(in srgb, var(--color-landing-orange) 42%, var(--color-landing-border))
+    ) border-box;
+}
 
 @theme inline {
   --color-background: var(--background);
